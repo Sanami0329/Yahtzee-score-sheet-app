@@ -109,9 +109,4 @@
             </tr>
         </tbody>
     </table>
-    <script>
-        window.addEventListener('show-validation-error', (event) => {
-            alert(event.detail.error);
-        });
-    </script>
 </div>

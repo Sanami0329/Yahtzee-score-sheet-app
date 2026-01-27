@@ -13,8 +13,6 @@ class PlayGame extends Component
     public array $players = [];
 
     public array $validationResult = [];
-    public int $playerCount = 0;
-    public int $playerErrorCount = 0;
     public ?string $errorMsg = null;
 
 
@@ -28,12 +26,6 @@ class PlayGame extends Component
             return redirect()->route('play.create');
         }
 
-        // 全playerのvalidationResultを初期化
-        foreach ($this->players as $player) {
-            $this->validationResult[$player['id']] = null;
-        }
-
-        $this->playerCount = count($this->players);
     }
 
 
@@ -48,25 +40,11 @@ class PlayGame extends Component
     public function validationResultUpdate($playerId, $errorMessage)
     {
         $this->validationResult[$playerId] = $errorMessage;
-        $this->playerErrorCount++;
 
         // 全player分のvalidationResultが揃ったらtrySaveを実行
-        if ($this->playerErrorCount === $this->playerCount) {
-            $this->playerErrorCount = 0;
+        if (count($this->validationResult) === count($this->players)) {
             $this->trySave();
         }
-    }
-
-    private function canSave(): bool
-    {
-        foreach ($this->validationResult as $error) {
-            if ($error !== null) {
-                $this->errorMsg = $error;
-                return false;
-            }
-        }
-
-        return true;
     }
 
     public function trySave()
@@ -79,6 +57,18 @@ class PlayGame extends Component
 
         $this->dispatch('save-player-score');
         $this->validationResult = [];
+    }
+
+        private function canSave(): bool
+    {
+        foreach ($this->validationResult as $error) {
+            if ($error !== null) {
+                $this->errorMsg = $error;
+                return false;
+            }
+        }
+
+        return true;
     }
 
 
