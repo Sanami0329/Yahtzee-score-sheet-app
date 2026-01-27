@@ -15,6 +15,8 @@ class PlayGame extends Component
     public array $validationResult = [];
     public ?string $errorMsg = null;
 
+    public array $savedPlayers = [];
+
 
     public function mount()
     {
@@ -35,6 +37,7 @@ class PlayGame extends Component
 
     protected $listeners = [
         'send-validation-result' => 'validationResultUpdate',
+        'saved-score' => 'redirectIfAllSaved',
     ];
 
     public function validationResultUpdate($playerId, $errorMessage)
@@ -69,6 +72,25 @@ class PlayGame extends Component
         }
 
         return true;
+    }
+
+    public function redirectIfAllSaved($playerId)
+    {
+        $this->savedPlayers[$playerId] = true;
+
+        $allSaved = true;
+
+        foreach ($this->players as $player) {
+            // savedPlayersのキーに全playerのidが存在するか確認
+            if (!array_key_exists($player['id'], $this->savedPlayers)) {
+                $allSaved = false;
+                break;
+            }
+        }
+
+        if ($allSaved) {
+            return redirect()->route('dashboard')->with('success', 'スコアを保存しました');
+        }
     }
 
 

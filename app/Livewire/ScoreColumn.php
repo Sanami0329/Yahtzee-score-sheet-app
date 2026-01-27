@@ -206,33 +206,39 @@ class ScoreColumn extends Component
     {
         try {
             $this->validate();
-            $this->dispatch('send-validation-result', $this->playerId, null);
+            $this->dispatch('send-validation-result', playerId: $this->playerId, errorMessage: null);
         } catch (ValidationException $e) {
             // バリデーションエラーがあれば、エラーメッセージも含め親のplaygameへdispatch
-            $this->dispatch('send-validation-result', $this->playerId, $e->validator->errors()->first());
+            $this->dispatch('send-validation-result', playerId: $this->playerId, errorMessage: $e->validator->errors()->first());
         }
     }
 
     public function save()
     {
-        Score::create([
-            'play_id' => $this->playId,
-            'player_id' => $this->playerId,
-            'ones' => $this->ones,
-            'twos' => $this->twos,
-            'threes' => $this->threes,
-            'fours' => $this->fours,
-            'fives' => $this->fives,
-            'sixes' => $this->sixes,
-            'three_kind' => $this->threeKind,
-            'four_kind' => $this->fourKind,
-            'full_house' => $this->fullHouse,
-            'small_straight' => $this->smallStraight,
-            'large_straight' => $this->largeStraight,
-            'yahtzee' => $this->yahtzee,
-            'chance' => $this->chance,
-            'yahtzee_bonus' => $this->yahtzeeBonus,
-        ]);
+        Score::updateOrCreate(
+            [
+                'play_id' => $this->playId,
+                'player_id' => $this->playerId,
+            ],
+            [
+                'ones' => $this->ones,
+                'twos' => $this->twos,
+                'threes' => $this->threes,
+                'fours' => $this->fours,
+                'fives' => $this->fives,
+                'sixes' => $this->sixes,
+                'three_kind' => $this->threeKind,
+                'four_kind' => $this->fourKind,
+                'full_house' => $this->fullHouse,
+                'small_straight' => $this->smallStraight,
+                'large_straight' => $this->largeStraight,
+                'yahtzee' => $this->yahtzee,
+                'chance' => $this->chance,
+                'yahtzee_bonus' => $this->yahtzeeBonus,
+            ]
+        );
+
+        $this->dispatch('saved-score', playerId: $this->playerId);
     }
 
     public function render()
