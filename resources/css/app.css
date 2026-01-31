@@ -9,8 +9,24 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-sans: 'Open Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-heading: 'Open Sans', var(--font-sans);
 
+    /* Brand color palette (provided) */
+    --color-brand-red-100: #DA6272;
+    --color-brand-red-200: #E38692;
+    --color-brand-red-300: #F1BFC6;
+    --color-brand-red-400: #F8DFE1;
+    --color-brand-blue-100: #6A8CC7;
+    --color-brand-blue-200: #8BA7D5;
+    --color-brand-blue-300: #C1D0EA;
+    --color-brand-blue-400: #DFE8F5;
+    --color-brand-yellow-100: #FFEE55;
+    --color-brand-yellow-200: #FFF280;
+    --color-brand-yellow-300: #FFF7AA;
+    --color-brand-yellow-400: #FFFBD5;
+
+    /* Legacy zinc colors */
     --color-zinc-50: #fafafa;
     --color-zinc-100: #f5f5f5;
     --color-zinc-200: #e5e5e5;
@@ -37,6 +53,32 @@
 }
 
 @layer base {
+    html, body {
+        font-family: var(--font-sans);
+    }
+
+    h1, h2, h3, h4, h5, h6, p {
+        font-family: var(--font-heading);
+    }
+
+    /* Remove spinner for number inputs (Chrome, Safari, Edge, Firefox) */
+    input[type="number"] {
+        -webkit-appearance: none; /* Chrome, Safari, Edge */
+        -moz-appearance: textfield !important; /* Firefox */
+        appearance: textfield;
+        -moz-user-select: auto;
+    }
+
+    input[type="number"]::-webkit-outer-spin-button,
+    input[type="number"]::-webkit-inner-spin-button {
+        -webkit-appearance: none; /* Chrome, Safari, Edge */
+        margin: 0;
+    }
+
+    /* Firefox specific inner focus/border removal */
+    input[type="number"]::-moz-focus-inner {
+        border: 0;
+    }
 
     *,
     ::after,
@@ -46,6 +88,28 @@
         border-color: var(--color-gray-200, currentColor);
     }
 }
+
+@layer components {
+    /* Background utilities */
+    .bg-brand-red-100 { background-color: var(--color-brand-red-100); }
+    .bg-brand-red-200 { background-color: var(--color-brand-red-200); }
+    .bg-brand-red-300 { background-color: var(--color-brand-red-300); }
+    .bg-brand-red-400 { background-color: var(--color-brand-red-400); }
+    .bg-brand-blue-100 { background-color: var(--color-brand-blue-100); }
+    .bg-brand-blue-200 { background-color: var(--color-brand-blue-200); }
+    .bg-brand-blue-300 { background-color: var(--color-brand-blue-300); }
+    .bg-brand-blue-400 { background-color: var(--color-brand-blue-400); }
+    .bg-brand-yellow-100 { background-color: var(--color-brand-yellow-100); }
+    .bg-brand-yellow-200 { background-color: var(--color-brand-yellow-200); }
+    .bg-brand-yellow-300 { background-color: var(--color-brand-yellow-300); }
+    .bg-brand-yellow-400 { background-color: var(--color-brand-yellow-400); }
+
+    /* Hover states (use slightly darker/lighter values as appropriate) */
+    .hover\:bg-brand-yellow-100:hover { background-color: var(--color-brand-yellow-100); }
+    .hover\:bg-brand-yellow-200:hover { background-color: var(--color-brand-yellow-200); }
+    .hover\:bg-brand-yellow-300:hover { background-color: var(--color-brand-yellow-300); }
+}
+
 
 [data-flux-field]:not(ui-radio, ui-checkbox) {
     @apply grid gap-2;
