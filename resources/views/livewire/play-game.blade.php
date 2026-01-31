@@ -1,13 +1,13 @@
-<div class="overflow-x-auto mx-auto">
-    <form wire:submit="save">
-        <div class="flex justify-center gap-0">
+<div class="mx-auto">
+    <form wire:submit="save" class="overflow-x-auto">
+        <div class="flex justify-center gap-0 min-w-max">
             {{-- score name&description --}}
             <table class="w-auto border-collapse border-1 border-gray-600 font-normal text-gray-800">
                 {{-- Column Headers --}}
                 <thead>
                     <tr class="h-10 bg-white">
                         <th class="min-w-48 border border-gray-600 text-left font-semibold"></th>
-                        <th class="min-w-60 border border-gray-600 text-center font-semibold">スコアの説明</th>
+                        <th class="min-w-60 border border-gray-600 text-center font-semibold">{{ __('スコアの説明') }}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -23,12 +23,12 @@
                     <tr class="h-10 bg-brand-red-400">
                         <th class="min-w-48 border border-gray-600 font-semibold">
                             <div class="flex items-center px-3 gap-4">
-                                <span class="w-12 text-left">{{ $row['name'] }}</span>
+                                <span class="w-12 text-left">{{ __($row['name']) }}</span>
                                 <span class="text-3xl font-light">{{ $row['dice'] }}</span>
                             </div>
                         </th>
                         <td class="border border-gray-600 px-3">
-                            {{ $row['desc'] }}
+                            {{ __($row['desc']) }}
                         </td>
                     </tr>
                     @endforeach
@@ -40,8 +40,8 @@
                     ['name' => 'UPPER TOTAL', 'desc' => '', 'eng_desc' => ''],
                     ] as $item)
                         <tr class="h-10 bg-brand-red-300">
-                            <th class="min-w-48 px-3 border border-gray-600 font-semibold text-lg text-left">{{ $item['name'] }}</th>
-                            <td class="min-w-60 px-3 border border-gray-600">{{ $item['desc'] }}</td>
+                            <th class="min-w-48 px-3 border border-gray-600 font-semibold text-lg text-left">{{ __($item['name']) }}</th>
+                            <td class="min-w-60 px-3 border border-gray-600">{{ __($item['desc']) }}</td>
                         </tr>
                     @endforeach
 
@@ -58,14 +58,14 @@
                     ] as $row)
                     <tr class="bg-brand-blue-400 h-10">
                         <th class="min-w-48 px-3 border border-gray-600 text-left font-semibold">{{ $row['name'] }}</th>
-                        <td class="min-w-60 px-3 border border-gray-600">{{ $row['desc'] }}</td>
+                        <td class="min-w-60 px-3 border border-gray-600">{{ __($row['desc']) }}</td>
                     </tr>
                     @endforeach
 
                     {{-- Yahtzee Bonus --}}
                     <tr class="h-16 bg-brand-blue-400">
                         <th class="min-w-48 px-3 border border-gray-600 text-left font-semibold">YAHTZEE BONUS</th>
-                        <td class="min-w-60 px-3 border border-gray-600">2回目以降は1回100点</td>
+                        <td class="min-w-60 px-3 border border-gray-600">{{ __('2回目以降は1回100点') }}</td>
                     </tr>
 
                     {{-- Lower Total --}}

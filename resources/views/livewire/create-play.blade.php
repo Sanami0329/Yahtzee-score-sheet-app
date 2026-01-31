@@ -4,7 +4,7 @@
 
             {{-- label --}}
             <div class="w-full text-center mb-8">
-                <flux:label class="!text-xl">プレーヤーの名前を入力してください</flux:label>
+                <flux:label class="!text-xl">{{ __('プレーヤーの名前を入力してください') }}</flux:label>
             </div>
 
             {{-- user --}}
@@ -18,7 +18,7 @@
             <div class="mb-4">
                 <div class="flex gap-4 items-center">
                     <flux:input class="flex-1" wire:model="subusers.{{ $i }}" placeholder="player{{ $i + 1 }}" />
-                    <flux:button wire:click="removeInput({{ $i }})" class="w-12 shrink-0 !text-red-400">削除</flux:button>
+                    <flux:button wire:click="removeInput({{ $i }})" class="w-12 shrink-0 !text-red-400">{{ __('削除') }}</flux:button>
                 </div>
                 @error("subusers.$i")
                 <p class="text-red-500 text-sm mt-2">{{ $message }}</p>
@@ -28,14 +28,14 @@
 
             @if (count($subusers) < 6)
                 <div class="flex justify-end mb-4">
-                    <flux:button wire:click="addInput" class="w-12">追加</flux:button>
+                    <flux:button wire:click="addInput" class="w-12">{{ __('追加') }}</flux:button>
                 </div>
             @endif
 
 
             {{-- submit button --}}
             <flux:button type="submit" class="mx-auto w-48 text-lg font-semibold !bg-brand-yellow-200 hover:!bg-brand-yellow-100 hover:!font-bold !text-black" variant="primary">
-                このメンバーで始める
+                {{ __('このメンバーで始める') }}
             </flux:button>
         </flux:field>
     </form>
