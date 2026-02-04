@@ -18,6 +18,7 @@ class CreatePlay extends Component
 
     protected $messages = [
         'subuserArray.*.unique' => '既存の名前と重複しています',
+        'subuserArray.*.max' => '10文字以内で入力してください',
     ];
 
     public function mount()
@@ -44,6 +45,7 @@ class CreatePlay extends Component
             'subuserArray.*' => [
                 'required',
                 'string',
+                'max:10',
                 // subusersテーブルで名前が重複していないかチェック
                 Rule::unique('subusers', 'name')->where('user_id', auth()->id()),
                 // 入力中の配列内で同じ名前があるかチェック

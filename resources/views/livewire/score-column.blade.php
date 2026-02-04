@@ -1,10 +1,10 @@
 <div>
     {{-- Score Table --}}
-    <table class="w-36 border-collapse border-1 border-gray-600 font-normal text-zinc-800">
+    <table class="border-collapse border-1 border-gray-600 font-normal text-zinc-800">
         {{-- Column Headers --}}
         <thead>
-            <tr class="h-10 bg-white">
-                <th class="w-60 border border-gray-600 text-center font-semibold">{{ $playerName }}</th>
+            <tr class="max-w-44 h-10 bg-white">
+                <th class="border border-gray-600 text-center font-semibold">{{ $playerName }}</th>
             </tr>
         </thead>
 

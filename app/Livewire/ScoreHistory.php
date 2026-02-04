@@ -3,29 +3,33 @@
 namespace App\Livewire;
 
 use Livewire\Component;
-use \Livewire\WithPagination;
 use \App\Models\Score;
+use Livewire\WithPagination;
+use Livewire\Attributes\Computed;
+
 class ScoreHistory extends Component
 {
-    public $sortBy = 'score';
-    public $sortDirection = 'asc';
+    use WithPagination;
+
+    public $sortBy = 'total';
+    public $sortDirection = 'desc';
 
     public function sort($column) {
         if ($this->sortBy === $column) {
-            $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
+            $this->sortDirection = $this->sortDirection === 'desc' ? 'asc' : 'desc';
         } else {
             $this->sortBy = $column;
-            $this->sortDirection = 'asc';
+            $this->sortDirection = 'desc';
         }
     }
 
-    #[\Livewire\Attributes\Computed]
-    public function histories()
+    #[Computed]
+    public function scoreHistories()
     {
         return Score::with('play.scores.player')
             ->where('player_id', auth()->id())
-            ->orderBy('total', 'desc')
-            ->paginate(10);
+            ->orderBy($this->sortBy, $this->sortDirection)
+            ->paginate(50);
     }
 
 

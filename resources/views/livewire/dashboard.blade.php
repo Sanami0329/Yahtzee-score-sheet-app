@@ -5,7 +5,7 @@
         </div>
     @endif
 
-    <div class="max-w-4xl min-w-180 mx-auto my-8">
+    <div class="mx-auto my-8">
         <div class="flex flex-col items-center gap-6">
 
             <flux:card class="max-w-2xl h-12 flex justify-between items-center gap-20 p-6 bg-gray-100 dark:bg-gray-300 rounded-lg shadow-md">
