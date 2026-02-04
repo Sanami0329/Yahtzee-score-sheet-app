@@ -24,6 +24,7 @@ class Score extends Model
         'yahtzee',
         'chance',
         'yahtzee_bonus',
+        'total',
     ];
 
     protected $fillable = [

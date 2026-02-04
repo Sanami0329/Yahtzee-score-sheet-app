@@ -16,7 +16,7 @@
             <flux:navbar class="-mb-px max-lg:hidden border-b-0">
 
                 <flux:navbar.item icon="home" class="after:hidden after:content-none" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>
-                    Home
+                    {{ __('ホーム') }}
                 </flux:navbar.item>
 
                 <flux:navbar.item icon="book-open-text" class="after:hidden after:content-none" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>

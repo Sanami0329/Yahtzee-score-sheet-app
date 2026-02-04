@@ -9,7 +9,7 @@ use Illuminate\Validation\Rule;
 use App\Models\Score;
 use Illuminate\Support\Facades\DB;
 
-#[Title("ダッシュボード")]
+#[Title("ホーム")]
 class Dashboard extends Component
 {
     public int $playCount;

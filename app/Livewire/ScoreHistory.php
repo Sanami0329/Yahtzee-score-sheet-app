@@ -5,7 +5,6 @@ namespace App\Livewire;
 use Livewire\Component;
 use \Livewire\WithPagination;
 use \App\Models\Score;
-
 class ScoreHistory extends Component
 {
     public $sortBy = 'score';
@@ -23,10 +22,10 @@ class ScoreHistory extends Component
     #[\Livewire\Attributes\Computed]
     public function histories()
     {
-        // need to rewrite
-        // return Score::query()
-        //     ->tap(fn ($query) => $this->sortBy ? $query->orderBy($this->sortBy, $this->sortDirection) : $query)
-        //     ->paginate(10);
+        return Score::with('play.scores.player')
+            ->where('player_id', auth()->id())
+            ->orderBy('total', 'desc')
+            ->paginate(10);
     }
 
 

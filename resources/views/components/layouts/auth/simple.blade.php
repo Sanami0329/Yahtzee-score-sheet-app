@@ -10,7 +10,7 @@
                     <span class="flex h-9 w-9 mb-1 items-center justify-center rounded-md">
                         <x-app-logo-icon width="48" height="48" class="fill-current text-black dark:text-white" />
                     </span>
-                    <span class="sr-only">{{ config('app.name', 'Laravel') }}</span>
+                    <span class="sr-only">{{ config('app.name', 'YahtzeeNote') }}</span>
                 </a>
                 <div class="flex flex-col gap-6">
                     {{ $slot }}
