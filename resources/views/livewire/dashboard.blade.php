@@ -34,9 +34,9 @@
         </div>
     </div>
 
-    <div class="flex justify-center">
+    {{-- <div class="flex justify-center">
         <flux:button icon="play" :href="route('play.create')" wire:navigate class="flex justify-center w-48 !text-base font-semibold px-4 py-6 !bg-brand-yellow-400 hover:!bg-brand-yellow-600 hover:!font-bold !text-zinc-900 rounded-lg shadow-md">
             {{ __('ゲームを始める') }}
         </flux:button>
-    </div>
+    </div> --}}
 </div>

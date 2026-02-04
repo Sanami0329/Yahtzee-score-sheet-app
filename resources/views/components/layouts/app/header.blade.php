@@ -15,11 +15,11 @@
 
             <flux:navbar class="-mb-px max-lg:hidden border-b-0">
 
-                <flux:navbar.item icon="home" class="after:hidden after:content-none" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>
+                <flux:navbar.item icon="home" class="after:hidden after:content-none hover:!bg-brand-yellow-300 dark:hover:!text-zinc-700" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>
                     {{ __('ホーム') }}
                 </flux:navbar.item>
 
-                <flux:navbar.item icon="book-open-text" class="after:hidden after:content-none" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>
+                <flux:navbar.item icon="book-open-text" class="after:hidden after:content-none hover:!bg-brand-yellow-300 dark:hover:!text-zinc-700" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>
                     {{ __('遊び方') }}
                 </flux:navbar.item>
 
@@ -53,7 +53,7 @@
                 </flux:tooltip>
             </flux:navbar> --}}
 
-            <flux:navbar.item icon="play" class="after:hidden after:content-none mx-4" :href="route('play.create')" :current="request()->routeIs('dashboard')" wire:navigate>
+            <flux:navbar.item icon="play" class="after:hidden after:content-none mx-4 bg-brand-yellow-300 hover:!bg-brand-yellow-600 dark:!text-zinc-800" :href="route('play.create')" :current="request()->routeIs('dashboard')" wire:navigate>
                 {{ __('ゲームを始める') }}
             </flux:navbar.item>
             <x-desktop-user-menu />

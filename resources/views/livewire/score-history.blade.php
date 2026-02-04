@@ -1,34 +1,56 @@
-<div class="pt-8">
-    <div class="max-w-4xl mx-auto bg-brand-blue-200 dark:bg-gray-700">
-        <h1 class="m-6 pt-4 font-semibold text-lg dark:text-white text-center">スコア履歴</h2>
-        <div class="max-w-3xl min-w-sm mx-auto pb-6">
-            <flux:table :paginate="$this->scoreHistories">
-                <flux:table.columns>
-                    <flux:table.column sortable :sorted="$sortBy === 'created_at'" :direction="$sortDirection" wire:click="sort('created_at')">日付</flux:table.column>
-                    <flux:table.column sortable :sorted="$sortBy === 'total'" :direction="$sortDirection" wire:click="sort('total')">自己スコア</flux:table.column>
-                    <flux:table.column>勝者</flux:table.column>
-                    <flux:table.column>参加メンバー</flux:table.column>
-                </flux:table.columns>
-                <flux:table.rows>
-                    @foreach ($this->scoreHistories as $score)
-                        <flux:table.row :key="$score->id">
-                            <flux:table.cell class="text-left whitespace-nowrap">{{ $score->created_at->format('Y-m-d') }}</flux:table.cell>
-                            <flux:table.cell class="text-left whitespace-nowrap">{{ $score->total }}</flux:table.cell>
-                            {{-- このゲームで一番totalが高かった人を抽出 --}}
-                            @php
-                                $highestScorePlayer = $score->play->scores->sortByDesc('total')->first();
-                            @endphp
-                            @if ($highestScorePlayer)
-                                <flux:table.cell class="text-left whitespace-nowrap">{{ $highestScorePlayer->player->name }}</flux:table.cell>
+<div class="flex justify-center sm:pt-8">
+    <div class="overflow-x-auto min-w-2xl h-dvh sm:h-auto bg-gray-100 py-4 text-zinc-800 px-20">
+
+        <h1 class="m-6 font-semibold text-lg text-center">スコア履歴</h1>
+
+        <table class="min-w-full divide-y divide-gray-300 bg-gray-50 text-center">
+            <thead class="bg-gray-200 text-center">
+                <tr>
+                    <th class="min-w-20 px-4 py-2">
+                        日付
+                        <button wire:click="sort('created_at')" class="text-center text-xs">
+                            @if($sortBy === 'created_at')
+                                {{ $sortDirection === 'asc' ? '▲' : '▼' }}
                             @endif
-                            {{-- 自分以外のプレーヤーを抽出 --}}
-                            <flux:table.cell class="text-left whitespace-nowrap">
-                                {{ $score->play->scores->where('player_id', '!=', auth()->id())->pluck('player.name')->implode('、') }}
-                            </flux:table.cell>
-                        </flux:table.row>
-                    @endforeach
-                </flux:table.rows>
-            </flux:table>
+                        </button>
+                    </th>
+                    <th class="min-w-20 px-4 py-2">
+                        自己スコア
+                        <button wire:click="sort('total')" class="text-center text-xs">
+                            @if($sortBy === 'total')
+                                {{ $sortDirection === 'asc' ? '▲' : '▼' }}
+                            @endif
+                        </button>
+                    </th>
+                    <th class="px-4 py-2">勝者</th>
+                    <th class="px-4 py-2">参加メンバー</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-300">
+                @foreach ($scoreHistories as $score)
+                    <tr class="bg-white hover:bg-brand-blue-100">
+                        <td class="px-4 py-2 whitespace-nowrap">{{ $score->created_at->format('Y-m-d') }}</td>
+                        <td class="px-4 py-2 whitespace-nowrap">{{ $score->total }}</td>
+                        @php
+                            $highestScorePlayer = $score->play->scores->sortByDesc('total')->first();
+                        @endphp
+                        <td class="px-4 py-2 whitespace-nowrap">
+                            @if ($highestScorePlayer)
+                                {{ $highestScorePlayer->player->name }}
+                            @endif
+                        </td>
+                        <td class="px-4 py-2 whitespace-nowrap text-left">
+                            {{ $score->play->scores->where('player_id', '!=', auth()->id())->pluck('player.name')->implode('、') }}
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+
+        {{-- ページネーション --}}
+        <div class="mt-4 mb-4">
+            {{ $scoreHistories->links('vendor.livewire.tailwind') }}
         </div>
+
     </div>
 </div>
