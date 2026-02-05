@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Subusers;
 
 use App\Models\Subuser;
 use Livewire\Component;
@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 
 
-class EditSubusers extends Component
+class EditSubuser extends Component
 {
     public Subuser $subuser; // ルートパラメータを受け取る
     public string $subuserName;
@@ -50,22 +50,21 @@ class EditSubusers extends Component
 
     public function delete()
     {
-        if($this->subuser->user_id !== Auth::id()){
+        if ($this->subuser->user_id !== Auth::id()) {
             abort(403);
         }
 
         $this->subuser->delete();
 
-        return redirect()->route('subusers.show')->flash('status', 'メンバーを削除しました。');
+        return redirect()->route('subusers.show')->with('deleteStatus', 'メンバーを削除しました。');
     }
-
 
     public function save()
     {
 
         $this->validate();
 
-        if($this->subuser->user_id !== Auth::id()){
+        if ($this->subuser->user_id !== Auth::id()) {
             abort(403);
         }
 
@@ -76,6 +75,6 @@ class EditSubusers extends Component
 
     public function render()
     {
-        return view('livewire.edit-subusers');
+        return view('livewire.subusers.edit-subuser');
     }
 }

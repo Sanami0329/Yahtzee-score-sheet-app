@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Plays;
 
 use Livewire\Component;
 use App\Models\Play;

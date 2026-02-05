@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Plays;
 
 use Livewire\Component;
 use Livewire\Attributes\Title;
@@ -29,7 +29,6 @@ class PlayGame extends Component
         if (!$this->playId || empty($this->playerArray)) {
             return redirect()->route('play.create');
         }
-
     }
 
 
@@ -48,7 +47,7 @@ class PlayGame extends Component
         $this->validationResult[$playerId] = $errorMessage;
 
         // 全player分のvalidationResultが揃っていれば（player数＆IDが同じか）errorOrSaveを実行
-        if(count($this->validationResult) === count($this->playerArray) && $this->isSameId('validationResult')) {
+        if (count($this->validationResult) === count($this->playerArray) && $this->isSameId('validationResult')) {
             $this->errorOrSave();
         } else if (count($this->validationResult) > count($this->playerArray)) {
             // もしvalidationResultの数が多ければ不正アクセスとみなし、エラー表示
@@ -57,7 +56,7 @@ class PlayGame extends Component
         }
     }
 
-    public function isSameId($arrayName) : bool
+    public function isSameId($arrayName): bool
     {
         // validationResultに全playerのidが存在するか確認
         foreach ($this->playerArray as $player) {
@@ -73,7 +72,7 @@ class PlayGame extends Component
     public function errorOrSave()
     {
         // バリデーションエラーがあればエラー表示のイベントを発火
-        if(!$this->canSave()) {
+        if (!$this->canSave()) {
             $this->dispatch('show-error', error: $this->errorMsg);
             $this->validationResult = [];
             return;
@@ -82,10 +81,9 @@ class PlayGame extends Component
         // バリデーションエラーがなければ各プレイヤーのスコアをリクエスト
         $this->dispatch('request-player-score');
         $this->validationResult = [];
-
     }
 
-    public function canSave() : bool
+    public function canSave(): bool
     {
         foreach ($this->validationResult as $error) {
             if ($error !== null) {
@@ -112,7 +110,7 @@ class PlayGame extends Component
         ];
 
         // 全player分のscoreArrayが揃っていれば（player数＆IDが同じか）errorOrSaveを実行
-        if(count($this->scoreArray) === count($this->playerArray) && $this->isSameId('scoreArray')) {
+        if (count($this->scoreArray) === count($this->playerArray) && $this->isSameId('scoreArray')) {
             $this->save();
         } else if (count($this->scoreArray) > count($this->playerArray)) {
             // もしscoreArrayの数が多ければ不正アクセスとみなし、エラー表示
@@ -135,15 +133,15 @@ class PlayGame extends Component
                             'ones' => $player['score']['ones'],
                             'twos' => $player['score']['twos'],
                             'threes' => $player['score']['threes'],
-                            'fours' => $player['score']['fours']  ,
-                            'fives' => $player['score']['fives']  ,
-                            'sixes' => $player['score']['sixes']  ,
-                            'three_kind' => $player['score']['threeKind'] ,
+                            'fours' => $player['score']['fours'],
+                            'fives' => $player['score']['fives'],
+                            'sixes' => $player['score']['sixes'],
+                            'three_kind' => $player['score']['threeKind'],
                             'four_kind' => $player['score']['fourKind'],
-                            'full_house' => $player['score']['fullHouse'] ,
-                            'small_straight' => $player['score']['smallStraight'] ,
-                            'large_straight' => $player['score']['largeStraight'] ,
-                            'yahtzee' => $player['score']['yahtzee']  ,
+                            'full_house' => $player['score']['fullHouse'],
+                            'small_straight' => $player['score']['smallStraight'],
+                            'large_straight' => $player['score']['largeStraight'],
+                            'yahtzee' => $player['score']['yahtzee'],
                             'chance' => $player['score']['chance'],
                             'yahtzee_bonus' => $player['score']['yahtzeeBonus'],
                             'total' => $player['score']['total'],
@@ -155,7 +153,6 @@ class PlayGame extends Component
             $this->scoreArray = [];
             session()->forget(['play.id', 'players']);
             return redirect()->route('dashboard')->with('success', 'スコアを保存しました');
-
         } catch (\Throwable $e) {
             logger()->error($e);
             $this->dispatch('show-error', error: '保存中にエラーが発生しました');
@@ -165,6 +162,6 @@ class PlayGame extends Component
 
     public function render()
     {
-        return view('livewire.play-game');
+        return view('livewire.plays.play-game');
     }
 }

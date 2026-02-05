@@ -170,3 +170,16 @@ select:focus[data-flux-control] {
 /* \[:where(&)\]:size-4 {
     @apply size-4;
 } */
+
+/* === form style reset === */
+input,
+textarea,
+select {
+  appearance: none;
+  -webkit-appearance: none;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  color: inherit;
+  opacity: 1
+}

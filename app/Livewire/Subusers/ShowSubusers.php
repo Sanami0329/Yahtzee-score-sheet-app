@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Subusers;
 
 use App\Models\Subuser;
 use Livewire\Component;
@@ -22,10 +22,10 @@ class ShowSubusers extends Component
     {
         $subusers = Subuser::query()
             ->where('user_id', auth()->id())
-            ->orderBy('id', 'desc')
+            ->orderBy('id', 'asc')
             ->paginate(10);
 
-        return view('livewire.show-subusers', [
+        return view('livewire.subusers.show-subusers', [
             'subusers' => $subusers
         ]);
     }

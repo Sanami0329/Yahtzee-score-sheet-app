@@ -12,11 +12,25 @@
             </ol>
         </nav>
 
+        @if (session('addStatus'))
+        <div class="mt-2 bg-green-100 text-green-500 text-sm text-center">
+            {{ session('addStatus') }}
+        </div>
+        @endif
+
+        @if (session('deleteStatus'))
+        <div class="mt-2 bg-red-100 bg-text-red-500 text-sm text-center">
+            {{ session('deleteStatus') }}
+        </div>
+        @endif
+
         <h1 class="m-4 font-semibold text-lg text-center">登録メンバー</h1>
 
         <div class="flex justify-end mb-4">
             <flux:button
-                class="w-36 !border-gray-300 !bg-white hover:!bg-brand-blue-200 hover:!font-bold !text-gray-800 text-center">
+                :href="route('add.subuser')"
+                wire:navigate
+                class="w-36 !border-gray-300 !bg-white hover:!bg-brand-red-200 hover:!font-bold !text-gray-800 text-center">
                 {{ __('＋  メンバー追加') }}
             </flux:button>
         </div>
@@ -35,20 +49,20 @@
                 <!-- ボディ部分 -->
                 <div class="space-y-2">
                     @foreach($subusers as $i => $subuser)
-                        <div
-                            wire:click="moveEdit({{ $subuser->id }})"
-                            class="flex items-center bg-white hover:bg-brand-blue-200 grid grid-cols-[auto_1fr] gap-0 rounded-lg overflow-hidden">
-                                <span class="px-4 py-2 whitespace-nowrap text-center">{{ $i + 1 }}</span>
-                                <span class="px-4 py-2 whitespace-nowrap text-center">{{ $subuser->name }}</span>
-                        </div>
+                    <div
+                        wire:click="moveEdit({{ $subuser->id }})"
+                        class="flex items-center bg-white hover:bg-brand-blue-200 grid grid-cols-[auto_1fr] gap-0 rounded-lg overflow-hidden">
+                        <span class="px-4 py-2 whitespace-nowrap text-center">{{ $i + 1 }}</span>
+                        <span class="px-4 py-2 whitespace-nowrap text-center">{{ $subuser->name }}</span>
+                    </div>
                     @endforeach
                 </div>
             </div>
 
-        {{-- ページネーション --}}
-        <div class="my-4">
-            {{ $subusers->links('vendor.livewire.tailwind') }}
-        </div>
+            {{-- ページネーション --}}
+            <div class="my-4">
+                {{ $subusers->links('vendor.livewire.tailwind') }}
+            </div>
 
+        </div>
     </div>
-</div>

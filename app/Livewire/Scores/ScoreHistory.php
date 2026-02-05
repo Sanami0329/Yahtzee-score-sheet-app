@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Scores;
 
 use Livewire\Component;
 use \App\Models\Score;
@@ -15,7 +15,8 @@ class ScoreHistory extends Component
     public $sortBy = 'total';
     public $sortDirection = 'desc';
 
-    public function sort($column) {
+    public function sort($column)
+    {
         if ($this->sortBy === $column) {
             $this->sortDirection = $this->sortDirection === 'desc' ? 'asc' : 'desc';
         } else {
@@ -32,7 +33,7 @@ class ScoreHistory extends Component
             ->orderBy($this->sortBy, $this->sortDirection)
             ->paginate(20);
 
-        return view('livewire.score-history', [
+        return view('livewire.scores.score-history', [
             'scoreHistories' => $scoreHistories
         ]);
     }

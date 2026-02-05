@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Plays;
 
 use Livewire\Component;
 use App\Models\Score;
@@ -68,7 +68,6 @@ class ScoreColumn extends Component
         $this->playId = $playId;
         $this->playerId = $playerId;
         $this->playerName = $playerName;
-
     }
 
     // decrement button calc
@@ -110,7 +109,7 @@ class ScoreColumn extends Component
     {
         $total = 0;
 
-        foreach($this->upperScoreArray as $field) {
+        foreach ($this->upperScoreArray as $field) {
             $total += $this->$field ?? 0;
         }
         return $total;
@@ -139,7 +138,7 @@ class ScoreColumn extends Component
     public function getLowerTotal()
     {
         $total = 0;
-        foreach($this->lowerScoreArray as $field) {
+        foreach ($this->lowerScoreArray as $field) {
             $total += $this->$field ?? 0;
         }
         return $total + $this->getYahtzeeBonus();
@@ -159,7 +158,7 @@ class ScoreColumn extends Component
     {
         // nullble, 半角数字, 整数, min, max
         return collect($this->scoreConfig)
-            ->mapWithKeys(fn ($config, $configField) => [
+            ->mapWithKeys(fn($config, $configField) => [
                 $configField => array_filter([
                     'required',
                     'integer',
@@ -187,7 +186,6 @@ class ScoreColumn extends Component
 
             $inValues = implode(', ', range($config['min'], $config['max'], $config['step']));
             $messages["{$field}.in"] = "{$config['label']}には{$inValues}のいずれかを入力してください";
-
         }
 
         return $messages;
@@ -230,6 +228,6 @@ class ScoreColumn extends Component
 
     public function render()
     {
-        return view('livewire.score-column');
+        return view('livewire.plays.score-column');
     }
 }

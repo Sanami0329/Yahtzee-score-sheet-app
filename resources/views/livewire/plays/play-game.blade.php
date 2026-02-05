@@ -37,10 +37,10 @@
                     ['name' => 'BONUS', 'desc' => '上段合計が63点以上で35点', 'eng_desc' => 'Score 35 if upper-score ≧ 63'],
                     ['name' => 'UPPER TOTAL', 'desc' => '', 'eng_desc' => ''],
                     ] as $item)
-                        <tr class="h-10 bg-brand-red-300">
-                            <th class="min-w-48 px-4 border border-gray-600 text-left font-semibold">{{ __($item['name']) }}</th>
-                            <td class="min-w-60 px-4 border border-gray-600 font-normal">{{ __($item['desc']) }}</td>
-                        </tr>
+                    <tr class="h-10 bg-brand-red-300">
+                        <th class="min-w-48 px-4 border border-gray-600 text-left font-semibold">{{ __($item['name']) }}</th>
+                        <td class="min-w-60 px-4 border border-gray-600 font-normal">{{ __($item['desc']) }}</td>
+                    </tr>
                     @endforeach
 
 
@@ -84,11 +84,11 @@
             {{-- kebab-case→camelCaseに自動変換されて、score-columnのlivewireコンポーネントに値が渡される --}}
             <div class="flex">
                 @foreach ($playerArray as $player)
-                    <livewire:score-column
-                        :key="'score-column-' . $player['id']"
-                        :play-id="$playId"
-                        :player-id="$player['id']"
-                        :player-name="$player['name']" />
+                <livewire:plays.score-column
+                    :key="'score-column-' . $player['id']"
+                    :play-id="$playId"
+                    :player-id="$player['id']"
+                    :player-name="$player['name']" />
                 @endforeach
             </div>
         </div>

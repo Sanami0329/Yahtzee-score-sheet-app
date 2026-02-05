@@ -22,23 +22,25 @@
             <form wire:submit.prevent="save" class="flex flex-col gap-4">
                 <flux:input wire:model.lazy="subuserName" class="bg-white !text-zinc-900 !text-semibold" />
                 @error('subuserName')
-                    <p class="text-red-500 text-sm">{{ $message }}</p>
+                <p class="text-red-500 text-sm">{{ $message }}</p>
                 @enderror
 
                 <div class="flex justify-center my-2 gap-4">
                     <flux:button
-                        wire:click="detele"
+                        wire:click="delete"
+                        wire:navigate
                         wire:confirm="本当に削除しますか？"
+                        wire:loading.attr="disabled"
                         variant="danger"
                         size="base"
                         class="">
-                        削除
+                        {{ __('削除') }}
                     </flux:button>
                     <flux:button
                         type="submit"
                         size="base"
                         class="">
-                        保存
+                        {{ __('保存') }}
                     </flux:button>
                 </div>
             </form>
