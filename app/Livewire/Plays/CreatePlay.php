@@ -16,42 +16,18 @@ class CreatePlay extends Component
 
     public $playerArray = [];
 
-    // #[Validate('max:10')]
-    // public $tmpPlayer;
-
-    // public array $tmpPlayerArray = [];
-
-    // public $subuserArray = [];
-
-
     public function mount()
     {
-        $this->playerArray = [''];
+        $this->playerArray[0] = [
+            'isRegistered' => false,
+            'id' => null,
+            'name' => null,
+        ];
     }
 
-
-    public function addInput()
+    public function updated($property) //プロパティ更新ごとの実行
     {
-        $this->tmpPlayerArray[] = '';
-    }
-
-    public function removeInput($index)
-    {
-        // 削除
-        unset($this->tmpPlayerArray[$index]);
-        // 空欄詰め直し
-        $this->tmpPlayerArray = array_values($this->tmpPlayerArray);
-    }
-
-    public function getPlayerStatus($index)
-    {
-        if (!isset($this->playerArray[$index])) {
-            return null;
-        } elseif ($this->playerArray[$index]['id'] !== null) {
-            return 'registered';
-        } else {
-            return 'temporary';
-        }
+        $this->validateOnly($property);
     }
 
     public function chosen($subuserId, $index)
@@ -59,33 +35,75 @@ class CreatePlay extends Component
         $subuser = Subuser::findOrFail($subuserId);
 
         $this->playerArray[$index] = [
+            'isRegistered' => true,
             'id'   => $subuser->id,
             'name' => $subuser->name,
         ];
     }
 
-    public function updatedTmpPlayer($index) //updatedをつけてプロパティ更新直後に実行
+    public function addInput($index)
     {
-        $this->validateOnly("tmpPlayerArray.$index");
+        $this->playerArray[$index + 1] = [
+            'id' => false,
+            'id' => null,
+            'name' => null,
+        ];
     }
+
+    public function removeInput($index)
+    {
+        // 削除
+        unset($this->playerArray[$index]);
+
+        // 空欄詰め直し
+        $this->filterPlayerArray();
+    }
+
+    private function filterPlayerArray()
+    {
+        $filteredArray = [];
+        foreach ($this->players as $key => $player) {
+            if (!empty($player['name'])) {
+                $filtered[$key] = $player;
+            }
+        }
+
+        $this->playerArray = $filteredArray;
+
+        if (empty($this->playerArray)) {
+            $this->playerArray[0] = [
+                'isRegistered' => false,
+                'id' => null,
+                'name' => null,
+            ];
+        }
+    }
+
+
+    // バリデーション
+    protected function rules()
+    {
+        return [
+            'playerArray.*.name' => ['required', 'string', 'max:10'],
+        ];
+    }
+
+    protected $message = [
+        'playerArray.*.name.max' => '10文字以内で入力してください',
+    ];
+
 
     public function save()
     {
-        // 空欄を除外
-        $this->tmpPlayerArray = array_filter($this->tmpPlayerArray);
+        // 空欄詰め直し
+        $this->filterPlayerArray();
 
-        $this->tmpPlayerArray = array_values($this->tmpPlayerArray);
+        // インデックスキー詰め直し
+        $this->playerArray = array_values($this->playerArray);
 
         $this->validate();
 
-        $subusersData = [];
-
-
-        $subusersData[] = [
-            'id' => $subuser->id,
-            'name' => $subuser->name,
-        ];
-        session(['subusers.data' => $subusersData,]);
+        session(['created.players.data' => $this->playerArray]);
 
         return redirect()->route('play.prepare');
     }

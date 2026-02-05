@@ -14,9 +14,9 @@ class PreparePlay extends Component
     {
         // createplayでsessionに保存した内容を取り出し、playgameのための情報を再度sessionに保存
 
-        $subusers = session('subusers.data');
+        $createdPlayers = session('created.players.data');
 
-        if (!$subusers) {
+        if (!$createdPlayers) {
             return redirect()->route('play.create');
         }
 
@@ -25,38 +25,47 @@ class PreparePlay extends Component
             'user_id' => auth()->id(),
         ]);
 
-        $players = [];
 
-        // Playersからuserを取得
+        $playerArray = [];
+
+        // Playersからuserを取得してplayerArrayに格納
         $userPlayer = Player::where([
             'user_id' => auth()->id(),
             'subuser_id' => null,
         ])->first();
 
-        $players[] = [
+        $playerArray[] = [
+            'isRegistered' => true,
             'id' => $userPlayer->id,
             'name' => $userPlayer->name,
         ];
 
 
-        // sessionに保存されたsubusersを取り出してplayersに追加
-        foreach ($subusers as $subuser) {
-            $player = Player::where('subuser_id', $subuser['id'])->first();
+        // sessionに保存されたcreatedPlayersを取り出してplayersに追加
+        foreach ($createdPlayers as $createdPlayer) {
+            if ($createdPlayer['isRegistered']) {
+                $subuserPlayer = Player::where('subuser_id', $createdPlayer['id'])->first();
 
-            if ($player) {
-                $players[] = [
-                    'id' => $player->id,
-                    'name' => $player->name,
+                $playerArray[] = [
+                    'isRegistered' => true,
+                    'id' => $subuserPlayer['id'],
+                    'name' => $subuserPlayer['name'],
+                ];
+            } else {
+                $playerArray[] = [
+                    'isRegistered' => false,
+                    'id' => null,
+                    'name' => $createdPlayer['name'],
                 ];
             }
         }
 
         session([
             'play.id' => $play->id,
-            'players' => $players,
+            'players' => $playerArray,
         ]);
 
-        session()->forget('subusers.data');
+        session()->forget('created.players.data');
 
         return redirect()->route('play.game');
     }

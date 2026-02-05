@@ -14,23 +14,36 @@
 
                 {{-- others --}}
                 @foreach($playerArray as $i => $player)
-                    @if($this->getPlayerStatus === 'registered')
-                    <div class="flex !w-md gap-4 items-center">
-                        <flux:input class="bg-white border-1 border-gray-400" wire:model="" :value="$player['name']" readonly />
-                        <flux:button wire:click="" class="w-12 shrink-0 !text-red-400">{{ __('削除') }}</flux:button>
+                    <div>
+                        @if($player[$i]['isRegistered'])
+                        <div class="flex !w-md gap-4 items-center">
+                            <flux:input class="bg-white border-1 border-gray-400" :value="$player['name']" readonly />
+                            <flux:button wire:click="" class="w-12 shrink-0 !text-red-400">{{ __('削除') }}</flux:button>
+                        </div>
+                        @else
+                        <div class="flex !w-md gap-4 items-center">
+                            <flux:input
+                                class="bg-white border-1 border-gray-400"
+                                wire:key="player-{{ $i }}"
+                                wire:model="playerArray.{{ $i }}.[name]"
+                                placeholder="player{{ $i + 1 }}" />
+                            <flux:modal.trigger name="choose-subuser">
+                                <flux:button class="!w-32 bg-brand-blue-100">{{ __('登録メンバーから選択') }}</flux:button>
+                                </flux:modal>
+                                <flux:button wire:click="removeInput({{ $i }})" class="w-12 shrink-0 !text-red-400">{{ __('削除') }}</flux:button>
+                        </div>
+                        @endif
+
+                        @error("playerArray.$i.name")
+                        <p class="text-red-400 text-sm mt-2">{{ $message }}</p>
+                        @enderror
                     </div>
-                    @elseif($this->getPlayerStatus === 'temporary')
-                    <div class="flex !w-md gap-4 items-center">
-                        <flux:input class="bg-white border-1 border-gray-400" wire:model="" :value="$player['name']" />
-                        <flux:button wire:click="" class="w-12 shrink-0 !text-red-400">{{ __('削除') }}</flux:button>
-                    </div>
-                    @else
-                    <div class="flex !w-md gap-4 items-center">
-                        <flux:input class="bg-white border-1 border-gray-400" wire:model="" placeholder="player{{ $i + 1 }}" />
-                        <flux:modal.trigger name="choose-subuser">
-                            <flux:button class="!w-32 bg-brand-blue-100">{{ __('登録メンバーから選択') }}</flux:button>
-                        </flux:modal>
-                        <flux:button wire:click="" class="w-12 shrink-0 !text-red-400">{{ __('削除') }}</flux:button>
+
+                    @if (count($playerArray) < 5)
+                    <div class="flex justify-end mb-4">
+                        <flux:button wire:click="addInput({{ $i }})" class="w-12">
+                            {{ __('追加') }}
+                        </flux:button>
                     </div>
                     @endif
 
@@ -66,15 +79,6 @@
                             </div>
                         </div>
                     </flux:modal>
-
-                    @if (count($playerArray) < 6)
-                        <div class="flex justify-end mb-4">
-                            <flux:button wire:click="addInput" class="w-12">
-                                {{ __('追加') }}
-                            </flux:button>
-                        </div>
-                    @endif
-
                 @endforeach
 
                 {{-- submit button --}}

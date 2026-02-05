@@ -56,7 +56,7 @@ class PlayGame extends Component
         }
     }
 
-    public function isSameId($arrayName): bool
+    private function isSameId($arrayName): bool
     {
         // validationResultに全playerのidが存在するか確認
         foreach ($this->playerArray as $player) {
@@ -69,7 +69,7 @@ class PlayGame extends Component
         return true;
     }
 
-    public function errorOrSave()
+    private function errorOrSave()
     {
         // バリデーションエラーがあればエラー表示のイベントを発火
         if (!$this->canSave()) {
@@ -83,7 +83,7 @@ class PlayGame extends Component
         $this->validationResult = [];
     }
 
-    public function canSave(): bool
+    private function canSave(): bool
     {
         foreach ($this->validationResult as $error) {
             if ($error !== null) {
