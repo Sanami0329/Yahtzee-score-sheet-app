@@ -8,99 +8,83 @@ use Livewire\Component;
 use Livewire\Attributes\Title;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
-
+use Livewire\Attributes\Validate;
 
 #[Title("プレーヤー入力")]
 class CreatePlay extends Component
 {
 
-    public array $subuserArray = [];
+    public $playerArray = [];
 
-    protected $messages = [
-        'subuserArray.*.unique' => '既存の名前と重複しています',
-        'subuserArray.*.max' => '10文字以内で入力してください',
-    ];
+    // #[Validate('max:10')]
+    // public $tmpPlayer;
+
+    // public array $tmpPlayerArray = [];
+
+    // public $subuserArray = [];
+
 
     public function mount()
     {
-        $this->subuserArray = [''];
+        $this->playerArray = [''];
     }
+
 
     public function addInput()
     {
-        $this->subuserArray[] = '';
+        $this->tmpPlayerArray[] = '';
     }
 
     public function removeInput($index)
     {
-        unset($this->subuserArray[$index]);
-        // 削除した段階で詰め直し
-        $this->subuserArray = array_values($this->subuserArray);
+        // 削除
+        unset($this->tmpPlayerArray[$index]);
+        // 空欄詰め直し
+        $this->tmpPlayerArray = array_values($this->tmpPlayerArray);
     }
 
-    protected function rules()
+    public function getPlayerStatus($index)
     {
-        return [
-            'subuserArray' => ['array', 'max:6'],
-            'subuserArray.*' => [
-                'required',
-                'string',
-                'max:10',
-                // subusersテーブルで名前が重複していないかチェック
-                Rule::unique('subusers', 'name')->where('user_id', auth()->id()),
-                // 入力中の配列内で同じ名前があるかチェック
-                function ($attribute, $value, $fail) {
-                    $counts = array_count_values($this->subuserArray);
-                    if ($counts[$value] > 1) {
-                        $fail('同じ名前は入力できません');
-                    }
-                },
-            ],
+        if (!isset($this->playerArray[$index])) {
+            return null;
+        } elseif ($this->playerArray[$index]['id'] !== null) {
+            return 'registered';
+        } else {
+            return 'temporary';
+        }
+    }
+
+    public function chosen($subuserId, $index)
+    {
+        $subuser = Subuser::findOrFail($subuserId);
+
+        $this->playerArray[$index] = [
+            'id'   => $subuser->id,
+            'name' => $subuser->name,
         ];
     }
 
-    public function updatedSubusers($index) //updatedをつけてプロパティ更新直後に実行
+    public function updatedTmpPlayer($index) //updatedをつけてプロパティ更新直後に実行
     {
-        $this->validateOnly("subusers.$index");
+        $this->validateOnly("tmpPlayerArray.$index");
     }
 
     public function save()
     {
         // 空欄を除外
-        $this->subuserArray = array_filter($this->subuserArray);
+        $this->tmpPlayerArray = array_filter($this->tmpPlayerArray);
 
-        $this->subuserArray = array_values($this->subuserArray);
+        $this->tmpPlayerArray = array_values($this->tmpPlayerArray);
 
         $this->validate();
 
         $subusersData = [];
 
 
-        DB::transaction(function () use (&$subusersData) { //ローカル変数を使用＆更新するために&で参照渡し
-
-            foreach ($this->subuserArray as $subName) {
-                $subuser = Subuser::firstOrcreate([
-                    'user_id' => auth()->id(),
-                    'name' => $subName,
-                ]);
-
-                Player::firstOrCreate(
-                    [
-                        'user_id' => auth()->id(),
-                        'subuser_id' => $subuser->id,
-                    ],
-                    [
-                        'name' => $subuser->name,
-                    ]
-                );
-
-                $subusersData[] = [
-                    'id' => $subuser->id,
-                    'name' => $subuser->name,
-                ];
-            }
-        });
-
+        $subusersData[] = [
+            'id' => $subuser->id,
+            'name' => $subuser->name,
+        ];
         session(['subusers.data' => $subusersData,]);
 
         return redirect()->route('play.prepare');
@@ -108,6 +92,10 @@ class CreatePlay extends Component
 
     public function render()
     {
-        return view('livewire.plays.create-play');
+        $subusers = Subuser::where('user_id', auth()->id())->paginate(10);
+
+        return view('livewire.plays.create-play', [
+            'subusers' => $subusers
+        ]);
     }
 }

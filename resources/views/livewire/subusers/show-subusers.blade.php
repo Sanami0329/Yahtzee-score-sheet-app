@@ -37,16 +37,16 @@
 
 
         <div class="min-w-full bg-brand-blue-100 p-4">
-            <!-- テーブル全体のコンテナ -->
-            <div class="bg-brand-blue-100 border-2 rounded-lg overflow-hidden space-y-2">
+            <!-- table -->
+            <div class="border-2 rounded-lg overflow-hidden space-y-2">
 
-                <!-- ヘッダー行 -->
+                <!-- header -->
                 <div class="bg-brand-blue-300 grid grid-cols-[auto_1fr]  rounded-lg gap-0">
                     <div class="px-4 py-2 text-center rounded-l-lg">No.</div>
                     <div class="px-4 py-2 text-center rounded-r-lg">名前</div>
                 </div>
 
-                <!-- ボディ部分 -->
+                <!-- body -->
                 <div class="space-y-2">
                     @foreach($subusers as $i => $subuser)
                     <div
@@ -59,7 +59,7 @@
                 </div>
             </div>
 
-            {{-- ページネーション --}}
+            {{-- pagination --}}
             <div class="my-4">
                 {{ $subusers->links('vendor.livewire.tailwind') }}
             </div>

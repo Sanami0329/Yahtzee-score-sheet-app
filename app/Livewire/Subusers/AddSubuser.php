@@ -5,6 +5,8 @@ namespace App\Livewire\Subusers;
 use App\Models\Subuser;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
+use Illuminate\Support\Facades\DB;
+use App\Models\Player;
 
 class AddSubuser extends Component
 {
@@ -40,10 +42,22 @@ class AddSubuser extends Component
 
         $this->validate();
 
-        Subuser::create([
-            'user_id' => auth()->id(),
-            'name' => $this->subuserName,
-        ]);
+        DB::transaction(function () {
+            $subuser = Subuser::firstOrCreate([
+                'user_id' => auth()->id(),
+                'name' => $this->subuserName,
+            ]);
+
+            Player::firstOrCreate(
+                [
+                    'user_id' => auth()->id(),
+                    'subuser_id' => $subuser->id,
+                ],
+                [
+                    'name' => $subuser->name,
+                ]
+            );
+        });
 
         return redirect()->route('subusers.show')->with('addStatus', 'メンバーを追加しました。');
     }
