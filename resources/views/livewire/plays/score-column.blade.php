@@ -1,4 +1,4 @@
-<div class="pt-8">
+<div class="">
     {{-- Score Table --}}
     <table class="border-collapse border-1 border-gray-600 font-normal text-zinc-800">
         {{-- Column Headers --}}
@@ -43,13 +43,13 @@
 
             {{-- Upper Totals --}}
             @foreach ([
-                ['name' => 'UPPER SCORE', 'method' => 'getUpperScore'],
-                ['name' => 'BONUS', 'method' => 'getBonus'],
-                ['name' => 'UPPER TOTAL', 'method' => 'getUpperTotal'],
+            ['name' => 'UPPER SCORE', 'method' => 'getUpperScore'],
+            ['name' => 'BONUS', 'method' => 'getBonus'],
+            ['name' => 'UPPER TOTAL', 'method' => 'getUpperTotal'],
             ] as $item)
-                <tr class="h-10 bg-brand-red-300">
-                    <td class="border border-gray-600 px-4 text-center font-semibold">{{ $this->{$item['method']}() }}</td>
-                </tr>
+            <tr class="h-10 bg-brand-red-300">
+                <td class="border border-gray-600 px-4 text-center font-semibold">{{ $this->{$item['method']}() }}</td>
+            </tr>
             @endforeach
 
             {{-- Lower Section --}}
@@ -89,7 +89,8 @@
                 <td class="border border-gray-600">
                     <div class="flex flex-col items-center px-4 gap-2">
                         <div class="flex gap-2">
-                            @for($i = 0; $i < 5; $i++)
+                            @for($i = 0; $i
+                            < 5; $i++)
                                 <flux:checkbox
                                 wire:model.live="yahtzeeBonusItems.{{ $i }}"
                                 class="bg-white border border-gray-600" />

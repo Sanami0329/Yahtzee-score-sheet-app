@@ -24,15 +24,26 @@ class PlayGame extends Component
     {
         // sessionからデータを受け取る
         $this->playId = session('play.id');
-        $this->playerArray = session('players');
+        $this->playerArray = session('players', []);
 
         if (!$this->playId || empty($this->playerArray)) {
             return redirect()->route('play.create');
         }
 
         foreach ($this->playerArray as $i => $player) {
-            $this->playerArray[$i] = ['playerNumber' => $i];
+            $this->playerArray[$i]['playerNumber'] = $i;
         }
+    }
+
+    public function quitGame()
+    {
+        session()->forget(['play.id', 'players']);
+        return redirect()->route('dashboard');
+    }
+
+    public function resetScores()
+    {
+        $this->dispatch('request-reset-score');
     }
 
 
@@ -126,7 +137,8 @@ class PlayGame extends Component
         try {
             DB::transaction(function () {
                 foreach ($this->scoreArray as $player) {
-                    if ($player['playerData']['isRegistered']) {
+                    // logger()->info('Saving score', $player);
+                    if ($player['playerData']['playerIsRegistered']) {
                         Score::updateOrCreate(
                             [
                                 'play_id' => $player['playId'],
@@ -158,7 +170,8 @@ class PlayGame extends Component
             session()->forget(['play.id', 'players']);
             return redirect()->route('dashboard')->with('success', 'スコアを保存しました');
         } catch (\Throwable $e) {
-            logger()->error($e);
+            logger()->error($e->getMessage());
+            logger()->error($e->getTraceAsString());
             $this->dispatch('show-error', error: '保存中にエラーが発生しました');
             $this->scoreArray = [];
         }

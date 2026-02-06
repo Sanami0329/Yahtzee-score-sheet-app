@@ -15,9 +15,9 @@
                 {{-- others --}}
                 @foreach($playerArray as $i => $player)
                 <div>
-                    @if(array_key_exists('isRegistered', $player) && $player['isRegistered'])
+                    @if(array_key_exists('playerIsRegistered', $player) && $player['playerIsRegistered'])
                     <div class="flex !w-md gap-4 items-center">
-                        <flux:input class="pointer-events-none bg-white border-1 border-gray-400" :value="$player['name']" readonly />
+                        <flux:input class="pointer-events-none bg-white border-1 border-gray-400" :value="$player['playerName']" readonly />
                         <flux:button wire:click="removeInput({{ $i }})" class="w-12 shrink-0 !text-red-400">{{ __('削除') }}</flux:button>
                     </div>
                     @else
@@ -25,7 +25,7 @@
                         <flux:input
                             class="bg-white border-1 border-gray-400"
                             wire:key="player-{{ $i }}"
-                            wire:model="playerArray.{{ $i }}.name"
+                            wire:model="playerArray.{{ $i }}.playerName"
                             placeholder="player{{ $i + 1 }}" />
                         <flux:modal.trigger name="select-subuser">
                             <flux:button class="!w-32 bg-brand-blue-100">{{ __('登録メンバーから選択') }}</flux:button>
@@ -34,7 +34,7 @@
                     </div>
                     @endif
 
-                    @error("playerArray.$i.name")
+                    @error("playerArray.$i.playerName")
                     <p class="text-red-400 text-sm mt-2">{{ $message }}</p>
                     @enderror
                 </div>

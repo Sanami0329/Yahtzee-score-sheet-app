@@ -83,7 +83,7 @@
             {{-- Score Columns --}}
             {{-- kebab-case→camelCaseに自動変換されて、score-columnのlivewireコンポーネントに値が渡される --}}
             <div class="flex">
-                @foreach ($playerArray as $player)
+                @foreach ($playerArray as $i => $player)
                 <livewire:plays.score-column
                     :key="'score-column-' . $player['playerNumber']"
                     :play-id="$playId"
@@ -92,9 +92,16 @@
             </div>
         </div>
         <div class="flex items-center justify-center mt-6 mb-2 gap-8">
-            <!-- <flux:button wire:click="" class="w-24 text-lg font-semibold">中止</flux:button> -->
-            <flux:button type="submit" class="w-24 !bg-gray-100 hover:!bg-brand-yellow-600 hover:!font-bold !text-zinc-900 !font-bold" variant="primary">保存</flux:button>
-            <!-- <flux:button wire:click="resetScore" class="w-24 text-lg font-semibold">リセット</flux:button> -->
+            <flux:button wire:click="quitGame"
+                wire:navigate
+                wire:confirm="ゲームを中止しますか？"
+                class="w-24 !bg-white text-lg !text-zinc-900 font-semibold hover:!font-bold hover:!text-white hover:!bg-red-500">中止</flux:button>
+            <flux:button wire:click="resetScores"
+                wire:navigate
+                wire:confirm="スコアを保存せずにリセットしますか？"
+                class="w-24 !bg-white text-lg !text-zinc-900 font-semibold hover:!font-bold hover:!bg-gray-200">リセット</flux:button>
+            <flux:button type="submit"
+                class="w-24 !bg-brand-yellow-400 !text-zinc-900 !font-bold hover:!bg-brand-yellow-700 hover:!font-bold" variant="primary">保存</flux:button>
         </div>
     </form>
     <script>

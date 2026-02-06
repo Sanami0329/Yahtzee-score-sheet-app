@@ -43,19 +43,21 @@ class PreparePlay extends Component
 
         // sessionに保存されたcreatedPlayersを取り出してplayersに追加
         foreach ($createdPlayers as $createdPlayer) {
+            // createdPlayerがsubuserに登録されていれば、登録メンバーとしてプレイ
             if ($createdPlayer['playerIsRegistered']) {
-                $subuserPlayer = Player::where('subuser_id', $createdPlayer['id'])->first();
+                $subuserPlayer = Player::where('subuser_id', $createdPlayer['playerId'])->first();
 
                 $playerArray[] = [
                     'playerIsRegistered' => true,
-                    'playerId' => $subuserPlayer['id'],
-                    'playerName' => $subuserPlayer['name'],
+                    'playerId' => $subuserPlayer->id,
+                    'playerName' => $subuserPlayer->name,
                 ];
             } else {
+                // それ以外はsessionでのゲストメンバー
                 $playerArray[] = [
                     'playerIsRegistered' => false,
                     'playerId' => null,
-                    'playerName' => $createdPlayer['name'],
+                    'playerName' => $createdPlayer['playerName'],
                 ];
             }
         }

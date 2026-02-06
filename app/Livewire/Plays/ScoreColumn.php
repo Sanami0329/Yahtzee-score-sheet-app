@@ -12,9 +12,6 @@ class ScoreColumn extends Component
     // play-game.bladeで呼び出される際に渡されるidやname→mountで初期化
     public $playerData;
     public int $playId;
-    public int $playerNumber;
-    public bool $playerIsRegistered;
-    public ?int $playerId;
     public string $playerName;
 
     // Upper Score
@@ -71,9 +68,6 @@ class ScoreColumn extends Component
         $this->playId = $playId;
 
         $this->playerData = $playerData;
-        $this->playerNumber = $this->playerData['playerNumber'];
-        $this->playerIsRegistered = $this->playerData['playerIsRegistered'];
-        $this->playerId = $this->playerData['playerId'];
         $this->playerName = $this->playerData['playerName'];
     }
 
@@ -156,6 +150,23 @@ class ScoreColumn extends Component
     {
         return $this->getUpperTotal() + $this->getLowerTotal();
     }
+
+    // reset score
+    #[On('request-reset-score')]
+    public function resetScore()
+    {
+        foreach ($this->upperScoreArray as $field) {
+            $this->$field = null;
+        }
+
+        foreach ($this->lowerScoreArray as $field) {
+            $this->$field = null;
+        }
+
+        $this->yahtzeeBonusItems = [false, false, false, false, false];
+        $this->getYahtzeeBonus();
+    }
+
 
 
     /*

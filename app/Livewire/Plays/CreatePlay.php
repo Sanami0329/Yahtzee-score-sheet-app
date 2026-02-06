@@ -23,9 +23,9 @@ class CreatePlay extends Component
     public function mount()
     {
         $this->playerArray[0] = [
-            'isRegistered' => false,
-            'id' => null,
-            'name' => null,
+            'playerIsRegistered' => false,
+            'playerId' => null,
+            'playerName' => null,
         ];
     }
 
@@ -42,16 +42,16 @@ class CreatePlay extends Component
         $subuser = Subuser::findOrFail($subuserId);
 
         $this->playerArray[$index] = [
-            'isRegistered' => true,
-            'id'   => $subuser->id,
-            'name' => $subuser->name,
+            'playerIsRegistered' => true,
+            'playerId'   => $subuser->id,
+            'playerName' => $subuser->name,
         ];
 
         if (count($this->playerArray) < 5) {
             $this->playerArray[$index + 1] = [
-                'isRegistered' => false,
-                'id' => null,
-                'name' => null,
+                'playerIsRegistered' => false,
+                'playerId' => null,
+                'playerName' => null,
             ];
         }
 
@@ -61,9 +61,9 @@ class CreatePlay extends Component
     public function addInput($index)
     {
         $this->playerArray[$index + 1] = [
-            'id' => false,
-            'id' => null,
-            'name' => null,
+            'playerIsRegistered' => false,
+            'playerId' => null,
+            'playerName' => null,
         ];
     }
 
@@ -73,7 +73,7 @@ class CreatePlay extends Component
             return;
         }
 
-        if ($this->playerArray[$index]['id'] != null) {
+        if ($this->playerArray[$index]['playerId'] != null) {
             unset($this->selectedSubuserArray[$index]);
         }
 
@@ -89,16 +89,16 @@ class CreatePlay extends Component
     {
         if (empty($this->playerArray)) {
             $this->playerArray[0] = [
-                'isRegistered' => false,
-                'id' => null,
-                'name' => null,
+                'playerIsRegistered' => false,
+                'playerId' => null,
+                'playerName' => null,
             ];
         } else {
 
             $filteredArray = [];
 
             foreach ($this->playerArray as $key => $player) {
-                if (!empty($player['name'])) {
+                if (!empty($player['playerName'])) {
                     $filteredArray[$key] = $player;
                 }
             }
@@ -112,12 +112,12 @@ class CreatePlay extends Component
     protected function rules()
     {
         return [
-            'playerArray.*.name' => ['required', 'string', 'max:10'],
+            'playerArray.*.playerName' => ['required', 'string', 'max:10'],
         ];
     }
 
     protected $message = [
-        'playerArray.*.name.max' => '10文字以内で入力してください',
+        'playerArray.*.playerName.max' => '10文字以内で入力してください',
     ];
 
 
