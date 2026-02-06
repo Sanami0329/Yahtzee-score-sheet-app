@@ -10,11 +10,21 @@ use App\Livewire\Scores\ScoreHistory;
 use App\Livewire\Subusers\AddSubuser;
 use App\Livewire\Subusers\EditSubuser;
 use App\Livewire\Subusers\ShowSubusers;
+use App\Http\Controllers\Auth\GoogleLoginController;
 
 
 Route::get('/', function () {
     return view('welcome');
 })->name('home');
+
+Route::middleware('guest')->group(function () {
+
+    Route::get('auth/google', [GoogleLoginController::class, 'redirectToGoogle'])
+        ->name('auth.google');
+
+    Route::get('auth/google/callback', [GoogleLoginController::class, 'handleGoogleCallback'])
+        ->name('auth.google.callbck');
+});
 
 Route::get('/home', Dashboard::class)
     ->middleware(['auth', 'verified'])

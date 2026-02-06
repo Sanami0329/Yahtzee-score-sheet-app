@@ -140,6 +140,16 @@
     .bg-brand-yellow-800 { background-color: var(--color-brand-yellow-800); }
     .bg-brand-yellow-900 { background-color: var(--color-brand-yellow-900); }
 
+    .text-brand-yellow-100 { background-color: var(--color-brand-yellow-100); }
+    .text-brand-yellow-200 { background-color: var(--color-brand-yellow-200); }
+    .text-brand-yellow-300 { background-color: var(--color-brand-yellow-300); }
+    .text-brand-yellow-400 { background-color: var(--color-brand-yellow-400); }
+    .text-brand-yellow-500 { background-color: var(--color-brand-yellow-500); }
+    .text-brand-yellow-600 { background-color: var(--color-brand-yellow-600); }
+    .text-brand-yellow-700 { background-color: var(--color-brand-yellow-700); }
+    .text-brand-yellow-800 { background-color: var(--color-brand-yellow-800); }
+    .text-brand-yellow-900 { background-color: var(--color-brand-yellow-900); }
+
     /* Hover states (use slightly darker/lighter values as appropriate) */
     .hover\:bg-brand-yellow-100:hover { background-color: var(--color-brand-yellow-100); }
     .hover\:bg-brand-yellow-200:hover { background-color: var(--color-brand-yellow-200); }
@@ -171,6 +181,13 @@ select:focus[data-flux-control] {
     @apply size-4;
 } */
 
+/* flux input */
+
+[data-flux-input] {
+    border-width: 2px;
+    border-color: gray; 
+}
+
 /* === form style reset === */
 input,
 textarea,
@@ -183,3 +200,4 @@ select {
   color: inherit;
   opacity: 1
 }
+
