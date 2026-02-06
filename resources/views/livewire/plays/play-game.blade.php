@@ -85,10 +85,9 @@
             <div class="flex">
                 @foreach ($playerArray as $player)
                 <livewire:plays.score-column
-                    :key="'score-column-' . $player['id']"
+                    :key="'score-column-' . $player['playerNumber']"
                     :play-id="$playId"
-                    :player-id="$player['id']"
-                    :player-name="$player['name']" />
+                    :player-Data="$player" />
                 @endforeach
             </div>
         </div>

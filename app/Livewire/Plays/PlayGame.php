@@ -29,6 +29,10 @@ class PlayGame extends Component
         if (!$this->playId || empty($this->playerArray)) {
             return redirect()->route('play.create');
         }
+
+        foreach ($this->playerArray as $i => $player) {
+            $this->playerArray[$i] = ['playerNumber' => $i];
+        }
     }
 
 
@@ -42,12 +46,12 @@ class PlayGame extends Component
     }
 
     #[On('send-validation-result')]
-    public function collectValidationResult($playerId, $errorMessage)
+    public function collectValidationResult($playerData, $errorMessage)
     {
-        $this->validationResult[$playerId] = $errorMessage;
+        $this->validationResult[] = ['playerData' => $playerData, 'msg' => $errorMessage];
 
         // 全player分のvalidationResultが揃っていれば（player数＆IDが同じか）errorOrSaveを実行
-        if (count($this->validationResult) === count($this->playerArray) && $this->isSameId('validationResult')) {
+        if (count($this->validationResult) === count($this->playerArray) && $this->isSameId($this->validationResult)) {
             $this->errorOrSave();
         } else if (count($this->validationResult) > count($this->playerArray)) {
             // もしvalidationResultの数が多ければ不正アクセスとみなし、エラー表示
@@ -56,15 +60,13 @@ class PlayGame extends Component
         }
     }
 
-    private function isSameId($arrayName): bool
+    private function isSameId($array): bool
     {
-        // validationResultに全playerのidが存在するか確認
-        foreach ($this->playerArray as $player) {
-            if (!array_key_exists($player['id'], $this->$arrayName)) {
-                // playerIdが合っていなければfalseを返す
-                $this->dispatch('show-error', error: 'プレーヤーidエラーが発生しました。もう一度やり直してください。');
-                return false;
-            }
+
+        if ($this->playerArray != array_column($array, 'playerData')) {
+            // playerDataの中身が合っていなければエラーを表示
+            $this->dispatch('show-error', error: '異なるプレーヤーが検出されました。もう一度やり直してください。');
+            return false;
         }
         return true;
     }
@@ -85,9 +87,9 @@ class PlayGame extends Component
 
     private function canSave(): bool
     {
-        foreach ($this->validationResult as $error) {
-            if ($error !== null) {
-                $this->errorMsg = $error;
+        foreach ($this->validationResult as $playerError) {
+            if ($playerError['msg'] !== null) {
+                $this->errorMsg = $playerError['msg'];
                 return false;
             }
         }
@@ -96,21 +98,21 @@ class PlayGame extends Component
     }
 
     #[On('send-player-score')]
-    public function collectPlayerScore($playId, $playerId, $playerScore)
+    public function collectPlayerScore($playId, $playerData, $playerScore)
     {
         if ($playId !== $this->playId) {
             $this->dispatch('show-error', error: 'playidエラーが発生しました。もう一度やり直してください。');
             return;
         }
 
-        $this->scoreArray[$playerId] = [
-            'play_id' => $playId,
-            'player_id' => $playerId,
+        $this->scoreArray[$playerData['playerNumber']] = [
+            'playId' => $playId,
+            'playerData' => $playerData,
             'score' => $playerScore,
         ];
 
         // 全player分のscoreArrayが揃っていれば（player数＆IDが同じか）errorOrSaveを実行
-        if (count($this->scoreArray) === count($this->playerArray) && $this->isSameId('scoreArray')) {
+        if (count($this->scoreArray) === count($this->playerArray) && $this->isSameId($this->scoreArray)) {
             $this->save();
         } else if (count($this->scoreArray) > count($this->playerArray)) {
             // もしscoreArrayの数が多ければ不正アクセスとみなし、エラー表示
@@ -124,29 +126,31 @@ class PlayGame extends Component
         try {
             DB::transaction(function () {
                 foreach ($this->scoreArray as $player) {
-                    Score::updateOrCreate(
-                        [
-                            'play_id' => $player['play_id'],
-                            'player_id' => $player['player_id'],
-                        ],
-                        [
-                            'ones' => $player['score']['ones'],
-                            'twos' => $player['score']['twos'],
-                            'threes' => $player['score']['threes'],
-                            'fours' => $player['score']['fours'],
-                            'fives' => $player['score']['fives'],
-                            'sixes' => $player['score']['sixes'],
-                            'three_kind' => $player['score']['threeKind'],
-                            'four_kind' => $player['score']['fourKind'],
-                            'full_house' => $player['score']['fullHouse'],
-                            'small_straight' => $player['score']['smallStraight'],
-                            'large_straight' => $player['score']['largeStraight'],
-                            'yahtzee' => $player['score']['yahtzee'],
-                            'chance' => $player['score']['chance'],
-                            'yahtzee_bonus' => $player['score']['yahtzeeBonus'],
-                            'total' => $player['score']['total'],
-                        ],
-                    );
+                    if ($player['playerData']['isRegistered']) {
+                        Score::updateOrCreate(
+                            [
+                                'play_id' => $player['playId'],
+                                'player_id' => $player['playerData']['playerId'],
+                            ],
+                            [
+                                'ones' => $player['score']['ones'],
+                                'twos' => $player['score']['twos'],
+                                'threes' => $player['score']['threes'],
+                                'fours' => $player['score']['fours'],
+                                'fives' => $player['score']['fives'],
+                                'sixes' => $player['score']['sixes'],
+                                'three_kind' => $player['score']['threeKind'],
+                                'four_kind' => $player['score']['fourKind'],
+                                'full_house' => $player['score']['fullHouse'],
+                                'small_straight' => $player['score']['smallStraight'],
+                                'large_straight' => $player['score']['largeStraight'],
+                                'yahtzee' => $player['score']['yahtzee'],
+                                'chance' => $player['score']['chance'],
+                                'yahtzee_bonus' => $player['score']['yahtzeeBonus'],
+                                'total' => $player['score']['total'],
+                            ],
+                        );
+                    }
                 }
             });
 

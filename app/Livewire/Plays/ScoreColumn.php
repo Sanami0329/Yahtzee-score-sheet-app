@@ -10,8 +10,11 @@ use Livewire\Attributes\On;
 class ScoreColumn extends Component
 {
     // play-game.bladeで呼び出される際に渡されるidやname→mountで初期化
+    public $playerData;
     public int $playId;
-    public int $playerId;
+    public int $playerNumber;
+    public bool $playerIsRegistered;
+    public ?int $playerId;
     public string $playerName;
 
     // Upper Score
@@ -58,7 +61,7 @@ class ScoreColumn extends Component
     /*
     以下メソッド
     */
-    public function mount(int $playId, int $playerId, string $playerName)
+    public function mount(int $playId, $playerData)
     {
         // playIdがセッションに存在しない場合はリダイレクト
         if (!session()->has('play.id') || session('play.id') !== $playId) {
@@ -66,8 +69,12 @@ class ScoreColumn extends Component
         }
 
         $this->playId = $playId;
-        $this->playerId = $playerId;
-        $this->playerName = $playerName;
+
+        $this->playerData = $playerData;
+        $this->playerNumber = $this->playerData['playerNumber'];
+        $this->playerIsRegistered = $this->playerData['playerIsRegistered'];
+        $this->playerId = $this->playerData['playerId'];
+        $this->playerName = $this->playerData['playerName'];
     }
 
     // decrement button calc
@@ -203,10 +210,10 @@ class ScoreColumn extends Component
     {
         try {
             $this->validate();
-            $this->dispatch('send-validation-result', playerId: $this->playerId, errorMessage: null);
+            $this->dispatch('send-validation-result', playerData: $this->playerData, errorMessage: null);
         } catch (ValidationException $e) {
             // バリデーションエラーがあれば、エラーメッセージも含め親のplaygameへdispatch
-            $this->dispatch('send-validation-result', playerId: $this->playerId, errorMessage: $e->validator->errors()->first());
+            $this->dispatch('send-validation-result', playerData: $this->playerData, errorMessage: $e->validator->errors()->first());
         }
     }
 
@@ -223,8 +230,9 @@ class ScoreColumn extends Component
         // 最後にtotalの値を追加
         $playerScoreArray['total'] = $this->getGrandTotal();
 
-        $this->dispatch('send-player-score', playId: $this->playId, playerId: $this->playerId, playerScore: $playerScoreArray);
+        $this->dispatch('send-player-score', playId: $this->playId, playerData: $this->playerData, playerScore: $playerScoreArray);
     }
+
 
     public function render()
     {

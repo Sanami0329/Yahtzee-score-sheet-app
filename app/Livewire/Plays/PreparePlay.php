@@ -35,27 +35,27 @@ class PreparePlay extends Component
         ])->first();
 
         $playerArray[] = [
-            'isRegistered' => true,
-            'id' => $userPlayer->id,
-            'name' => $userPlayer->name,
+            'playerIsRegistered' => true,
+            'playerId' => $userPlayer->id,
+            'playerName' => $userPlayer->name,
         ];
 
 
         // sessionに保存されたcreatedPlayersを取り出してplayersに追加
         foreach ($createdPlayers as $createdPlayer) {
-            if ($createdPlayer['isRegistered']) {
+            if ($createdPlayer['playerIsRegistered']) {
                 $subuserPlayer = Player::where('subuser_id', $createdPlayer['id'])->first();
 
                 $playerArray[] = [
-                    'isRegistered' => true,
-                    'id' => $subuserPlayer['id'],
-                    'name' => $subuserPlayer['name'],
+                    'playerIsRegistered' => true,
+                    'playerId' => $subuserPlayer['id'],
+                    'playerName' => $subuserPlayer['name'],
                 ];
             } else {
                 $playerArray[] = [
-                    'isRegistered' => false,
-                    'id' => null,
-                    'name' => $createdPlayer['name'],
+                    'playerIsRegistered' => false,
+                    'playerId' => null,
+                    'playerName' => $createdPlayer['name'],
                 ];
             }
         }
