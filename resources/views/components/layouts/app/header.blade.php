@@ -55,7 +55,7 @@
                 </flux:tooltip>
             </flux:navbar> --}}
 
-        <flux:navbar.item icon="play" class="after:hidden after:content-none mx-4 border-1 hover:font-bold hover:!bg-brand-yellow-600 dark:hover:!text-zinc-800" :href="route('play.create')" :current="request()->routeIs('dashboard')" wire:navigate>
+        <flux:navbar.item icon="play" class="hidden sm:flex after:hidden after:content-none mr-4 border-1 hover:font-bold hover:!bg-brand-yellow-600 dark:hover:!text-zinc-800" :href="route('play.create')" :current="request()->routeIs('dashboard')" wire:navigate>
             {{ __('ゲームを始める') }}
         </flux:navbar.item>
         <x-desktop-user-menu />

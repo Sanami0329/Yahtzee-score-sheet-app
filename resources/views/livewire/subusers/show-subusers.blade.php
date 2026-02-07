@@ -1,6 +1,5 @@
-<div class="flex justify-center sm:pt-8">
-
-    <div class="overflow-x-auto min-w-xl h-dvh sm:h-auto bg-gray-50 px-10 pt-4 pb-8 text-zinc-800">
+<div class="">
+    <div class="overflow-x-auto min-w-xs sm:w-md h-dvh sm:h-auto bg-zinc-50 sm:mt-14 my-6 mx-auto py-6 px-10 text-zinc-800">
 
         <nav aria-label="breadcrumb" class="text-sm text-zinc-500">
             <ol class="flex items-center space-x-2">
@@ -30,19 +29,19 @@
             <flux:button
                 :href="route('add.subuser')"
                 wire:navigate
-                class="w-36 !border-gray-300 !bg-white hover:!bg-brand-red-200 hover:!font-bold !text-gray-800 text-center">
+                class="w-32 !border-zinc-300 !bg-white hover:!bg-brand-red-200 hover:!font-bold !text-zinc-800 text-center">
                 {{ __('＋  メンバー追加') }}
             </flux:button>
         </div>
 
 
-        <div class="min-w-full bg-brand-blue-100 p-4">
+        <div class="w-auto bg-brand-blue-100 p-4">
             <!-- table -->
             <div class="border-2 rounded-lg overflow-hidden space-y-2">
 
                 <!-- header -->
                 <div class="bg-brand-blue-300 grid grid-cols-[auto_1fr]  rounded-lg gap-0">
-                    <div class="px-4 py-2 text-center rounded-l-lg">No.</div>
+                    <div class="w-16 pl-2 py-2 text-center rounded-l-lg">No.</div>
                     <div class="px-4 py-2 text-center rounded-r-lg">名前</div>
                 </div>
 
@@ -52,7 +51,7 @@
                     <div
                         wire:click="moveEdit({{ $subuser->id }})"
                         class="flex items-center bg-white hover:bg-brand-blue-200 grid grid-cols-[auto_1fr] gap-0 rounded-lg overflow-hidden">
-                        <span class="px-4 py-2 whitespace-nowrap text-center">{{ $i + 1 }}</span>
+                        <span class="w-16 pl-2 py-2 whitespace-nowrap text-center">{{ $i + 1 }}</span>
                         <span class="px-4 py-2 whitespace-nowrap text-center">{{ $subuser->name }}</span>
                     </div>
                     @endforeach
@@ -66,3 +65,4 @@
 
         </div>
     </div>
+</div>

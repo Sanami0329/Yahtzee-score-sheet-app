@@ -1,91 +1,90 @@
-<div class="flex justify-center sm:pt-8">
+<div class="">
+    <div class="overflow-x-auto max-w-xl min-w-sm h-dvh sm:h-auto bg-zinc-50 sm:mt-14 my-6 mx-auto py-6 px-10 text-zinc-900 !bg-brand-yellow-100">
 
-    <div class="overflow-x-auto min-w-xl h-dvh sm:h-auto bg-gray-50 px-10 pt-4 pb-8 text-zinc-900">
+        <h1 class="my-6 font-semibold text-lg text-center">プレーヤーの名前を入力してください</h1>
 
-        <h1 class="m-4 font-semibold text-lg text-center">プレーヤーの名前を入力してください</h1>
-
-        <div class="min-w-full p-4">
-            <form wire:submit.prevent="save" class="flex flex-col gap-4">
+        <div class="min-w-full">
+            <form wire:submit.prevent="save" class="flex flex-col gap-6">
 
                 {{-- user --}}
-                <div class="flex !w-md gap-4 mb-4 items-center">
-                    <flux:input class="pointer-events-none border-1 border-gray-400 !text-black" name="user" :value="auth()->user()?->name" readonly />
+                <div class="flex gap-2 items-center">
+                    <flux:input class="pointer-events-none bg-zinc-50 !text-black" name="user" :value="auth()->user()?->name" readonly />
                 </div>
 
                 {{-- others --}}
                 @foreach($playerArray as $i => $player)
                 <div>
                     @if(array_key_exists('playerIsRegistered', $player) && $player['playerIsRegistered'])
-                    <div class="flex !w-md gap-4 items-center">
-                        <flux:input class="pointer-events-none bg-white border-1 border-gray-400" :value="$player['playerName']" readonly />
+                    <div class="flex gap-2 items-center">
+                        <flux:input class="pointer-events-none bg-white border-1 border-zinc-400" :value="$player['playerName']" readonly />
                         <flux:button wire:click="removeInput({{ $i }})" class="w-12 shrink-0 !text-red-400">{{ __('削除') }}</flux:button>
                     </div>
                     @else
-                    <div class="flex !w-md gap-4 items-center">
+                    <div class="flex gap-2 items-center">
                         <flux:input
-                            class="bg-white border-1 border-gray-400"
+                            class="bg-white border-1 border-zinc-400"
                             wire:key="player-{{ $i }}"
                             wire:model="playerArray.{{ $i }}.playerName"
                             placeholder="player{{ $i + 1 }}" />
                         <flux:modal.trigger name="select-subuser">
-                            <flux:button class="!w-32 bg-brand-blue-100">{{ __('登録メンバーから選択') }}</flux:button>
+                            <flux:button class="!w-28 !bg-white hover:!bg-brand-blue-100 !text-zinc-700 !font-medium !text-xs">{{ __('登録メンバーから選択') }}</flux:button>
                         </flux:modal.trigger>
-                        <flux:button wire:click="removeInput({{ $i }})" class="w-12 shrink-0 !text-red-400">{{ __('削除') }}</flux:button>
+                        <flux:button wire:click="removeInput({{ $i }})" class="w-10 shrink-0 !text-red-400">{{ __('削除') }}</flux:button>
                     </div>
                     @endif
 
                     @error("playerArray.$i.playerName")
                     <p class="text-red-400 text-sm mt-2">{{ $message }}</p>
                     @enderror
-                </div>
 
-                {{-- modal section --}}
-                <flux:modal name="select-subuser" class="md:max-w-96">
+                    {{-- modal section --}}
+                    <flux:modal name="select-subuser" class="md:max-w-96">
 
-                    <div class="overflow-x-auto min-w-72 h-dvh sm:h-auto bg-gray-50 px-10 pt-4 pb-8 text-zinc-800">
+                        <div class="overflow-x-auto min-w-72 sm:h-auto bg-zinc-50 px-10 pt-4 pb-8 text-zinc-800">
 
-                        <h1 class="m-4 font-semibold text-lg text-center">登録メンバー</h1>
+                            <h1 class="m-4 font-semibold text-lg text-center">登録メンバー</h1>
 
-                        <div class="min-w-full bg-brand-blue-100 p-4">
+                            <div class="min-w-full bg-brand-blue-100 p-4">
 
-                            <!-- table -->
-                            <div class="bg-brand-blue-100 border-2 rounded-lg overflow-hidden space-y-2">
+                                <!-- table -->
+                                <div class="bg-brand-blue-100 border-2 rounded-lg overflow-hidden space-y-2">
 
-                                <!-- body -->
-                                <div class="space-y-2">
-                                    @foreach($subusers as $subuser)
-                                    <div
-                                        wire:click="selectedSubuser({{ $subuser->id }}, {{ $i }})"
-                                        class="flex items-center !justify-center bg-white hover:bg-brand-blue-200 gap-0 rounded-lg overflow-hidden">
-                                        <span class="pointer-events-none px-4 py-2 whitespace-nowrap !text-center !arrow-text">{{ $subuser->name }}</span>
+                                    <!-- body -->
+                                    <div class="space-y-2">
+                                        @foreach($subusers as $subuser)
+                                        <div
+                                            wire:click="selectedSubuser({{ $subuser->id }}, {{ $i }})"
+                                            class="flex items-center !justify-center bg-white hover:bg-brand-blue-200 gap-0 rounded-lg overflow-hidden">
+                                            <span class="pointer-events-none px-4 py-2 whitespace-nowrap !text-center !arrow-text">{{ $subuser->name }}</span>
+                                        </div>
+                                        @endforeach
                                     </div>
-                                    @endforeach
                                 </div>
-                            </div>
 
-                            {{-- pagination --}}
-                            <div class="my-4">
-                                {{ $subusers->links('vendor.livewire.tailwind') }}
-                            </div>
+                                {{-- pagination --}}
+                                <div class="my-4">
+                                    {{ $subusers->links('vendor.livewire.tailwind') }}
+                                </div>
 
+                            </div>
                         </div>
-                    </div>
-                </flux:modal>
+                    </flux:modal>
+                </div>
                 @endforeach
 
                 @if (count($playerArray) < 5)
-                    <div class="!w-md flex justify-end mb-4">
-                    <flux:button wire:click="addInput({{ $i }})" class="w-12">
-                        {{ __('追加') }}
-                    </flux:button>
-        </div>
-        @endif
+                    <div class="flex justify-end mb-4">
+                        <flux:button wire:click="addInput({{ $i }})" class="w-10">
+                            {{ __('追加') }}
+                        </flux:button>
+                    </div>
+                @endif
 
-        {{-- submit button --}}
-        <flux:button type="submit" class="mx-auto w-48 text-lg font-semibold !bg-brand-yellow-400 hover:!bg-brand-yellow-600 hover:!font-bold !text-zinc-900" variant="primary">
-            {{ __('このメンバーで始める') }}
-        </flux:button>
-        </form>
+                {{-- submit button --}}
+                <flux:button type="submit" class="w-48 mx-auto my-4 text-lg font-semibold hover:!border-brand-yellow-900 !bg-brand-yellow-400 hover:!bg-brand-yellow-600 hover:!font-bold !text-zinc-900" variant="primary">
+                    {{ __('このメンバーで始める') }}
+                </flux:button>
+            </form>
+        </div>
     </div>
-</div>
 </div>

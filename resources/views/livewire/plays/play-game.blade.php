@@ -1,13 +1,14 @@
-<div class="pt-8 mx-auto">
-    <form wire:submit="checkBeforeSave" class="overflow-x-auto">
-        <div class="flex justify-center gap-0 min-w-max">
+<div class="overflow-x-auto">
+    <form wire:submit="checkBeforeSave" class="h-dvh sm:h-auto mx-auto mt-6 my-6 py-6">
+        <!-- table -->
+        <div class="min-w-full mx-auto flex md:justify-center gap-0">
             {{-- score name&description --}}
-            <table class="w-auto border-collapse border-1 border-gray-600 font-normal text-zinc-800">
+            <table class="border-collapse border-1 border-zinc-600 font-normal text-zinc-800">
                 {{-- Column Headers --}}
                 <thead>
                     <tr class="h-10 bg-white">
-                        <th class="min-w-48 border border-gray-600 text-left font-medium"></th>
-                        <th class="min-w-60 border border-gray-600 text-center font-normal">{{ __('スコアの説明') }}</th>
+                        <th class="min-w-48 border border-zinc-600 text-left font-medium"></th>
+                        <th class="min-w-60 border border-zinc-600 text-center font-normal">{{ __('スコアの説明') }}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -21,13 +22,13 @@
                     ['name' => 'Sixes', 'dice' => '⚅', 'desc' => '6の目の合計', 'eng_desc' => 'Count and add only Sixes'],
                     ] as $row)
                     <tr class="h-10 bg-brand-red-100">
-                        <th class="min-w-48 border border-gray-600">
+                        <th class="min-w-48 border border-zinc-600">
                             <div class="flex items-center px-4 gap-4">
                                 <span class="w-12 text-left font-medium">{{ __($row['name']) }}</span>
                                 <span class="text-3xl font-thin">{{ $row['dice'] }}</span>
                             </div>
                         </th>
-                        <td class="border border-gray-600 px-4 font-normal">{{ __($row['desc']) }}</td>
+                        <td class="border border-zinc-600 px-4 font-normal">{{ __($row['desc']) }}</td>
                     </tr>
                     @endforeach
 
@@ -38,8 +39,8 @@
                     ['name' => 'UPPER TOTAL', 'desc' => '', 'eng_desc' => ''],
                     ] as $item)
                     <tr class="h-10 bg-brand-red-300">
-                        <th class="min-w-48 px-4 border border-gray-600 text-left font-semibold">{{ __($item['name']) }}</th>
-                        <td class="min-w-60 px-4 border border-gray-600 font-normal">{{ __($item['desc']) }}</td>
+                        <th class="min-w-48 px-4 border border-zinc-600 text-left font-semibold">{{ __($item['name']) }}</th>
+                        <td class="min-w-60 px-4 border border-zinc-600 font-normal">{{ __($item['desc']) }}</td>
                     </tr>
                     @endforeach
 
@@ -55,27 +56,27 @@
                     ['name' => 'Chance', 'desc' => '全部の目の合計', 'eng_desc' => 'Total of all 5 dice'],
                     ] as $row)
                     <tr class="bg-brand-blue-100 h-10">
-                        <th class="min-w-48 px-4 border border-gray-600 text-left font-medium">{{ $row['name'] }}</th>
-                        <td class="min-w-60 px-4 border border-gray-600 font-normal">{{ __($row['desc']) }}</td>
+                        <th class="min-w-48 px-4 border border-zinc-600 text-left font-medium">{{ $row['name'] }}</th>
+                        <td class="min-w-60 px-4 border border-zinc-600 font-normal">{{ __($row['desc']) }}</td>
                     </tr>
                     @endforeach
 
                     {{-- Yahtzee Bonus --}}
                     <tr class="h-16 bg-brand-blue-100">
-                        <th class="min-w-48 px-4 border border-gray-600 text-left font-medium">YAHTZEE BONUS</th>
-                        <td class="min-w-60 px-4 border border-gray-600 font-normal">{{ __('2回目以降は1回100点') }}</td>
+                        <th class="min-w-48 px-4 border border-zinc-600 text-left font-medium">YAHTZEE BONUS</th>
+                        <td class="min-w-60 px-4 border border-zinc-600 font-normal">{{ __('2回目以降は1回100点') }}</td>
                     </tr>
 
                     {{-- Lower Total --}}
                     <tr class="h-10 bg-brand-blue-300">
-                        <th class="min-w-48 px-4 border border-gray-600 text-left font-semibold">LOWER TOTAL</th>
-                        <td class="min-w-60 px-4 border border-gray-600 font-normal"></td>
+                        <th class="min-w-48 px-4 border border-zinc-600 text-left font-semibold">LOWER TOTAL</th>
+                        <td class="min-w-60 px-4 border border-zinc-600 font-normal"></td>
                     </tr>
 
                     {{-- Grand Total --}}
-                    <tr class="h-14 bg-brand-yellow-300 border-t-4 border-double border-gray-600 text-lg">
-                        <th class="min-w-48 p-4 border border-gray-600 text-left font-bold">GRAND TOTAL</th>
-                        <td class="min-w-60 p-4 border border-gray-600 font-normal"></td>
+                    <tr class="h-14 bg-brand-yellow-300 border-t-4 border-double border-zinc-600 text-lg">
+                        <th class="min-w-48 p-4 border border-zinc-600 text-left font-bold">GRAND TOTAL</th>
+                        <td class="min-w-60 p-4 border border-zinc-600 font-normal"></td>
                     </tr>
                 </tbody>
             </table>
@@ -91,17 +92,21 @@
                 @endforeach
             </div>
         </div>
-        <div class="flex items-center justify-center mt-6 mb-2 gap-8">
-            <flux:button wire:click="quitGame"
-                wire:navigate
-                wire:confirm="ゲームを中止しますか？"
-                class="w-24 !bg-white text-lg !text-zinc-900 font-semibold hover:!font-bold hover:!text-white hover:!bg-red-500">中止</flux:button>
-            <flux:button wire:click="resetScores"
-                wire:navigate
-                wire:confirm="スコアを保存せずにリセットしますか？"
-                class="w-24 !bg-white text-lg !text-zinc-900 font-semibold hover:!font-bold hover:!bg-gray-200">リセット</flux:button>
-            <flux:button type="submit"
-                class="w-24 !bg-brand-yellow-400 !text-zinc-900 !font-bold hover:!bg-brand-yellow-700 hover:!font-bold" variant="primary">保存</flux:button>
+
+        <!-- button (固定表示) -->
+        <div class="md:w-full md:mx-auto fixed md:static bottom-0 right-0 left-0 my-6">
+            <div class="flex justify-center items-center gap-4">
+                <flux:button wire:click="quitGame"
+                    wire:navigate
+                    wire:confirm="ゲームを中止しますか？"
+                    class="w-20 !bg-white text-lg !text-red-500 font-medium hover:!font-bold hover:!text-white hover:!bg-red-500">中止</flux:button>
+                <flux:button wire:click="resetScores"
+                    wire:navigate
+                    wire:confirm="スコアを保存せずにリセットしますか？"
+                    class="w-20 !bg-white text-lg !text-zinc-900 font-medium hover:!font-bold hover:!bg-zinc-200">リセット</flux:button>
+                <flux:button type="submit"
+                    class="w-20 !bg-brand-yellow-400 !text-zinc-900 !font-bold hover:!bg-brand-yellow-700 hover:!font-bold" variant="primary">保存</flux:button>
+            </div>
         </div>
     </form>
     <script>

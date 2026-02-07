@@ -1,5 +1,5 @@
-<div class="flex justify-center sm:pt-8">
-    <div class="overflow-x-auto max-w-4xl min-w-2xl h-dvh sm:h-auto bg-gray-50 px-10 py-4 text-zinc-800">
+<div class="">
+    <div class="overflow-x-auto max-w-4xl min-w-2xl h-dvh sm:h-auto bg-zinc-50 sm:mt-14 my-6 mx-auto py-6 px-0 text-zinc-800">
 
         <nav aria-label="breadcrumb" class="text-sm text-zinc-500">
             <ol class="flex items-center space-x-2">

@@ -1,6 +1,6 @@
-<div class="flex justify-center sm:pt-8">
+<div class="">
 
-    <div class="overflow-x-auto min-w-xl h-dvh sm:h-auto bg-gray-50 px-10 pt-4 pb-8 text-zinc-900">
+    <div class="overflow-x-auto min-w-xs sm:w-md h-dvh sm:h-auto bg-zinc-50 sm:mt-14 my-6 mx-auto py-6 px-10 text-zinc-900">
 
         <nav aria-label="breadcrumb" class="text-sm text-zinc-500">
             <ol class="flex items-center space-x-2">
@@ -31,9 +31,8 @@
                         wire:navigate
                         wire:confirm="本当に削除しますか？"
                         wire:loading.attr="disabled"
-                        variant="danger"
                         size="base"
-                        class="">
+                        class="!text-red-500 hover:!font-semibold">
                         {{ __('削除') }}
                     </flux:button>
                     <flux:button

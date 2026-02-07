@@ -1,6 +1,6 @@
-<div class="flex justify-center sm:pt-8">
+<div class="">
 
-    <div class="overflow-x-auto min-w-xl h-dvh sm:h-auto bg-gray-50 px-10 pt-4 pb-8 text-zinc-900">
+    <div class="overflow-x-auto min-w-xs sm:w-md h-dvh sm:h-auto bg-zinc-50 sm:mt-14 my-6 mx-auto py-6 px-10 text-zinc-900">
 
         <nav aria-label="breadcrumb" class="text-sm text-zinc-500">
             <ol class="flex items-center space-x-2">
@@ -20,7 +20,7 @@
 
         <div class="min-w-full bg-brand-blue-300 p-4">
             <form wire:submit.prevent="save" class="flex flex-col gap-4">
-                <flux:input wire:model.lazy="subuserName" class="bg-white border-1 border-gray-400 !text-zinc-700 !text-semibold" />
+                <flux:input wire:model.lazy="subuserName" class="bg-white border-1 border-zinc-400 !text-zinc-700 !text-semibold" />
                 @error('subuserName')
                 <p class="text-red-500 text-sm">{{ $message }}</p>
                 @enderror
