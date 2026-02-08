@@ -35,15 +35,15 @@
     --color-brand-blue-900: #3261AB;
 
     /* Brand yellow color */
-    --color-brand-yellow-100: #FFFCE3;
-    --color-brand-yellow-200: #FFF9C6;
-    --color-brand-yellow-300: #FFF7AA;
-    --color-brand-yellow-400: #FFF48E;
-    --color-brand-yellow-500: #FFF171;
-    --color-brand-yellow-600: #FFEE55;
-    --color-brand-yellow-700: #FFEB39;
-    --color-brand-yellow-800: #FFE81C;
-    --color-brand-yellow-900: #FFE600;
+    --color-brand-yellow-100: #FEF9E2;
+    --color-brand-yellow-200: #FDF3C6;
+    --color-brand-yellow-300: #FCEDAA;
+    --color-brand-yellow-400: #FBE78E;
+    --color-brand-yellow-500: #FAE173;
+    --color-brand-yellow-600: #F9DB57;
+    --color-brand-yellow-700: #F8D53B;
+    --color-brand-yellow-800: #F7D020;
+    --color-brand-yellow-900: #F6CA06;
 
     /* Legacy zinc colors */
     --color-zinc-50: #fafafa;
@@ -110,7 +110,8 @@
 }
 
 @layer components {
-    /* Background utilities */
+    
+    /* Background */
     .bg-brand-red-100 { background-color: var(--color-brand-red-100); }
     .bg-brand-red-200 { background-color: var(--color-brand-red-200); }
     .bg-brand-red-300 { background-color: var(--color-brand-red-300); }
@@ -141,7 +142,18 @@
     .bg-brand-yellow-800 { background-color: var(--color-brand-yellow-800); }
     .bg-brand-yellow-900 { background-color: var(--color-brand-yellow-900); }
 
-    /* Hover states (use slightly darker/lighter values as appropriate) */
+    /* Hover background */
+    .hover\:bg-brand-yellow-100:hover { background-color: var(--color-brand-yellow-100); }
+    .hover\:bg-brand-yellow-200:hover { background-color: var(--color-brand-yellow-200); }
+    .hover\:bg-brand-yellow-300:hover { background-color: var(--color-brand-yellow-300); }
+    .hover\:bg-brand-yellow-400:hover { background-color: var(--color-brand-yellow-400); }
+    .hover\:bg-brand-yellow-500:hover { background-color: var(--color-brand-yellow-500); }
+    .hover\:bg-brand-yellow-600:hover { background-color: var(--color-brand-yellow-600); }
+    .hover\:bg-brand-yellow-700:hover { background-color: var(--color-brand-yellow-700); }
+    .hover\:bg-brand-yellow-800:hover { background-color: var(--color-brand-yellow-800); }
+    .hover\:bg-brand-yellow-900:hover { background-color: var(--color-brand-yellow-900); }
+
+    /* Border */
     .border-brand-yellow-100 { background-color: var(--color-brand-yellow-100); }
     .border-brand-yellow-200 { background-color: var(--color-brand-yellow-200); }
     .border-brand-yellow-300 { background-color: var(--color-brand-yellow-300); }
@@ -152,7 +164,7 @@
     .border-brand-yellow-800 { background-color: var(--color-brand-yellow-800); }
     .border-brand-yellow-900 { background-color: var(--color-brand-yellow-900);}
 
-    /* Hover states (use slightly darker/lighter values as appropriate) */
+    /* Hover border */
     .hover\:border-brand-yellow-100:hover { background-color: var(--color-brand-yellow-100); }
     .hover\:border-brand-yellow-200:hover { background-color: var(--color-brand-yellow-200); }
     .hover\:border-brand-yellow-300:hover { background-color: var(--color-brand-yellow-300); }
@@ -162,21 +174,11 @@
     .hover\:border-brand-yellow-700:hover { background-color: var(--color-brand-yellow-700); }
     .hover\:border-brand-yellow-800:hover { background-color: var(--color-brand-yellow-800); }
     .hover\:border-brand-yellow-900:hover { background-color: var(--color-brand-yellow-900);}
-
-    /* Hover states (use slightly darker/lighter values as appropriate) */
-    .hover\:bg-brand-yellow-100:hover { background-color: var(--color-brand-yellow-100); }
-    .hover\:bg-brand-yellow-200:hover { background-color: var(--color-brand-yellow-200); }
-    .hover\:bg-brand-yellow-300:hover { background-color: var(--color-brand-yellow-300); }
-    .hover\:bg-brand-yellow-400:hover { background-color: var(--color-brand-yellow-400); }
-    .hover\:bg-brand-yellow-500:hover { background-color: var(--color-brand-yellow-500); }
-    .hover\:bg-brand-yellow-600:hover { background-color: var(--color-brand-yellow-600); }
-    .hover\:bg-brand-yellow-700:hover { background-color: var(--color-brand-yellow-700); }
-    .hover\:bg-brand-yellow-800:hover { background-color: var(--color-brand-yellow-800); }
-    .hover\:bg-brand-yellow-900:hover { background-color: var(--color-brand-yellow-900); }
 }
 
 @layer utilities {
-    /* Brand red */
+
+    /* Text */
     .text-brand-red-100 { color: var(--color-brand-red-100); }
     .text-brand-red-200 { color: var(--color-brand-red-200); }
     .text-brand-red-300 { color: var(--color-brand-red-300); }
@@ -206,7 +208,6 @@
     .text-brand-yellow-700 { color: var(--color-brand-yellow-700); }
     .text-brand-yellow-800 { color: var(--color-brand-yellow-800); }
     .text-brand-yellow-900 { color: var(--color-brand-yellow-900); }
-
 }
 
 [data-flux-field]:not(ui-radio, ui-checkbox) {

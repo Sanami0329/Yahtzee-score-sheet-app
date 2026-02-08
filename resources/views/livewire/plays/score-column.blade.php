@@ -1,6 +1,6 @@
 <div class="">
     {{-- Score Table --}}
-    <table class="border-collapse border-t-1 border-b-1 border-r-1 font-normal text-zinc-800">
+    <table class="border-collapse border-t-1 border-b-1 border-r-1 font-normal text-zinc-600">
         {{-- Column Headers --}}
         <thead>
             <tr class="max-w-44 h-10 bg-white">
@@ -17,7 +17,7 @@
                         <flux:button
                             size="xs"
                             wire:click="decrement('{{ $field }}')"
-                            class="!bg-zinc-200 !text-zinc-800 border-t-1 border-b-1 border-r-1 !border-zinc-600"
+                            class="!bg-zinc-200 !text-zinc-600 border-t-1 border-b-1 border-r-1 !border-zinc-600"
                             style="width: 24px">
                             -
                         </flux:button>
@@ -32,7 +32,7 @@
                         <flux:button
                             size="xs"
                             wire:click="increment('{{ $field }}')"
-                            class="!bg-zinc-200 !text-zinc-800 !border-t-1 border-b-1 border-r-1 !border-zinc-600"
+                            class="!bg-zinc-200 !text-zinc-600 !border-t-1 border-b-1 border-r-1 !border-zinc-600"
                             style="width: 24px">
                             +
                         </flux:button>
@@ -60,7 +60,7 @@
                         <flux:button
                             size="xs"
                             wire:click="decrement('{{ $field }}')"
-                            class="!bg-zinc-200 !text-zinc-800 border-t-1 border-b-1 border-r-1 !border-zinc-600"
+                            class="!bg-zinc-200 !text-zinc-600 border-t-1 border-b-1 border-r-1 !border-zinc-600"
                             style="width: 24px">
                             -
                         </flux:button>
@@ -75,7 +75,7 @@
                         <flux:button
                             size="xs"
                             wire:click="increment('{{ $field }}')"
-                            class="!bg-zinc-200 !text-zinc-800 border-t-1 border-b-1 border-r-1 !border-zinc-600"
+                            class="!bg-zinc-200 !text-zinc-600 border-t-1 border-b-1 border-r-1 !border-zinc-600"
                             style="width: 24px">
                             +
                         </flux:button>
@@ -96,7 +96,7 @@
                                 class="bg-white border-t-1 border-b-1 border-r-1 border-zinc-600" />
                             @endfor
                         </div>
-                        <div class="text-center text-zinc-800 px-4">
+                        <div class="text-center text-zinc-600 px-4">
                             {{ $this->getYahtzeeBonus() }}
                         </div>
                     </div>
@@ -109,7 +109,7 @@
             </tr>
 
             {{-- Grand Total --}}
-            <tr class="h-14 bg-brand-yellow-300 border-t-4 border-double border-zinc-600 text-lg font-bold">
+            <tr class="h-14 bg-brand-yellow-400 border-t-4 border-double border-zinc-600 text-lg font-bold">
                 <td class="border-t-1 border-b-1 border-r-1 border-zinc-600 p-4 text-center">{{ $this->getGrandTotal() }}</td>
             </tr>
         </tbody>

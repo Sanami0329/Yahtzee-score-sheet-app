@@ -10,7 +10,7 @@
 </head>
 
 <body class="min-h-screen bg-white dark:bg-zinc-800">
-    <flux:header container class="fixed w-full border-b border-zinc-200 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900">
+    <flux:header container class="fixed w-full border-b border-zinc-200 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900 pt-2 lg:pt-0">
         <flux:sidebar.toggle class="lg:hidden mr-2" icon="bars-2" inset="left" />
 
         <x-app-logo href="{{ route('top') }}" wire:navigate />
@@ -56,7 +56,7 @@
                 </flux:tooltip>
             </flux:navbar> --}}
 
-        <flux:navbar.item icon="play" class="hidden sm:flex after:hidden after:content-none mr-4 border-1 hover:font-bold hover:!bg-brand-yellow-600 dark:hover:!text-zinc-800" :href="route('play.create')" :current="request()->routeIs('dashboard')" wire:navigate>
+        <flux:navbar.item icon="play" class="hidden sm:flex after:hidden after:content-none mr-4 border hover:font-bold hover:!bg-brand-yellow-600 dark:hover:!text-zinc-800" :href="route('play.create')" :current="request()->routeIs('dashboard')" wire:navigate>
             {{ __('ゲームを始める') }}
         </flux:navbar.item>
         <x-desktop-user-menu />
@@ -91,10 +91,10 @@
         {{-- <flux:sidebar.nav>
             <flux:sidebar.item icon="folder-git-2" href="https://github.com/laravel/livewire-starter-kit" target="_blank">
                 {{ __('Repository') }}
-            </flux:sidebar.item>
-            <flux:sidebar.item icon="book-open-text" href="https://laravel.com/docs/starter-kits#livewire" target="_blank">
-                {{ __('Documentation') }}
-            </flux:sidebar.item>
+        </flux:sidebar.item>
+        <flux:sidebar.item icon="book-open-text" href="https://laravel.com/docs/starter-kits#livewire" target="_blank">
+            {{ __('Documentation') }}
+        </flux:sidebar.item>
         </flux:sidebar.nav> --}}
 
     </flux:sidebar>

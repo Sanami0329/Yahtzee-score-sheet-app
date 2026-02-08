@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Validate;
 use Livewire\WithPagination;
 
-#[Title("プレーヤー入力")]
+#[Title("プレイヤー入力")]
 class CreatePlay extends Component
 {
     use WithPagination;
