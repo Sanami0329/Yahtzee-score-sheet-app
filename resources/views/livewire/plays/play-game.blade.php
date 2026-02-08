@@ -104,8 +104,10 @@
                     wire:navigate
                     wire:confirm="スコアを保存せずにリセットしますか？"
                     class="w-20 !bg-zinc-50 !text-zinc-600 !font-medium hover:!font-bold hover:!bg-white">リセット</flux:button>
-                <flux:button type="submit"
-                    class="w-20 text-zinc-600 hover:!text-zinc-700 bg-brand-yellow-400 hover:!bg-brand-yellow-700 hover:!border-2 !font-medium hover:!font-bold" variant="primary">保存</flux:button>
+                <flux:button
+                    type="submit"
+                    class="w-20 text-zinc-600 hover:!text-zinc-700 bg-brand-yellow-400 hover:!bg-brand-yellow-700 hover:!border-2 !font-medium hover:!font-bold"
+                    variant="primary">保存</flux:button>
             </div>
         </div>
     </form>
@@ -113,6 +115,12 @@
         // エラーのアラート表示()
         window.addEventListener('show-error', (event) => {
             alert(event.detail.error); // detailでカスタムイベントのデータを受け取る
+        });
+
+        window.addEventListener('confirm-save', (event) => {
+            if (confirm('スコアを保存しますか？')) {
+                Livewire.dispatch('request-save');
+            }
         });
     </script>
 </div>

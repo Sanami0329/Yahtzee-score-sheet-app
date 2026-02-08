@@ -16,8 +16,8 @@ use App\Livewire\HowToPlay;
 
 
 Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+    return view('top');
+})->name('top');
 
 
 Route::middleware('guest')->group(function () {
@@ -30,14 +30,13 @@ Route::middleware('guest')->group(function () {
 });
 
 
-
 require __DIR__ . '/settings.php';
 
 
 Route::get('/home', Dashboard::class)
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
-    
+
 Route::get('/members/show', ShowSubusers::class)->name('subusers.show');
 Route::get('/members/{subuser}/edit', EditSubuser::class)->name('edit.subuser');
 Route::get('/members/add', AddSubuser::class)->name('add.subuser');
@@ -48,5 +47,4 @@ Route::get('/play/prepare', PreparePlay::class)->name('play.prepare');
 
 Route::get('/score-history', ScoreHistory::class)->name('score.history');
 
-Route::get('/top', Top::class)->name('top');
 Route::get('/how-to-play', HowToPlay::class)->name('howtoplay');

@@ -154,26 +154,26 @@
     .hover\:bg-brand-yellow-900:hover { background-color: var(--color-brand-yellow-900); }
 
     /* Border */
-    .border-brand-yellow-100 { background-color: var(--color-brand-yellow-100); }
-    .border-brand-yellow-200 { background-color: var(--color-brand-yellow-200); }
-    .border-brand-yellow-300 { background-color: var(--color-brand-yellow-300); }
-    .border-brand-yellow-400 { background-color: var(--color-brand-yellow-400); }
-    .border-brand-yellow-500 { background-color: var(--color-brand-yellow-500); }
-    .border-brand-yellow-600 { background-color: var(--color-brand-yellow-600); }
-    .border-brand-yellow-700 { background-color: var(--color-brand-yellow-700); }
-    .border-brand-yellow-800 { background-color: var(--color-brand-yellow-800); }
-    .border-brand-yellow-900 { background-color: var(--color-brand-yellow-900);}
+    .border-brand-yellow-100 { border-color: var(--color-brand-yellow-100); }
+    .border-brand-yellow-200 { border-color: var(--color-brand-yellow-200); }
+    .border-brand-yellow-300 { border-color: var(--color-brand-yellow-300); }
+    .border-brand-yellow-400 { border-color: var(--color-brand-yellow-400); }
+    .border-brand-yellow-500 { border-color: var(--color-brand-yellow-500); }
+    .border-brand-yellow-600 { border-color: var(--color-brand-yellow-600); }
+    .border-brand-yellow-700 { border-color: var(--color-brand-yellow-700); }
+    .border-brand-yellow-800 { border-color: var(--color-brand-yellow-800); }
+    .border-brand-yellow-900 { border-color: var(--color-brand-yellow-900);}
 
     /* Hover border */
-    .hover\:border-brand-yellow-100:hover { background-color: var(--color-brand-yellow-100); }
-    .hover\:border-brand-yellow-200:hover { background-color: var(--color-brand-yellow-200); }
-    .hover\:border-brand-yellow-300:hover { background-color: var(--color-brand-yellow-300); }
-    .hover\:border-brand-yellow-400:hover { background-color: var(--color-brand-yellow-400); }
-    .hover\:border-brand-yellow-500:hover { background-color: var(--color-brand-yellow-500); }
-    .hover\:border-brand-yellow-600:hover { background-color: var(--color-brand-yellow-600); }
-    .hover\:border-brand-yellow-700:hover { background-color: var(--color-brand-yellow-700); }
-    .hover\:border-brand-yellow-800:hover { background-color: var(--color-brand-yellow-800); }
-    .hover\:border-brand-yellow-900:hover { background-color: var(--color-brand-yellow-900);}
+    .hover\:border-brand-yellow-100:hover { border-color: var(--color-brand-yellow-100); }
+    .hover\:border-brand-yellow-200:hover { border-color: var(--color-brand-yellow-200); }
+    .hover\:border-brand-yellow-300:hover { border-color: var(--color-brand-yellow-300); }
+    .hover\:border-brand-yellow-400:hover { border-color: var(--color-brand-yellow-400); }
+    .hover\:border-brand-yellow-500:hover { border-color: var(--color-brand-yellow-500); }
+    .hover\:border-brand-yellow-600:hover { border-color: var(--color-brand-yellow-600); }
+    .hover\:border-brand-yellow-700:hover { border-color: var(--color-brand-yellow-700); }
+    .hover\:border-brand-yellow-800:hover { border-color: var(--color-brand-yellow-800); }
+    .hover\:border-brand-yellow-900:hover { border-color: var(--color-brand-yellow-900);}
 }
 
 @layer utilities {

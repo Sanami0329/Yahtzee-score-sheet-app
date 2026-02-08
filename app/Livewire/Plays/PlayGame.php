@@ -124,7 +124,7 @@ class PlayGame extends Component
 
         // 全player分のscoreArrayが揃っていれば（player数＆IDが同じか）errorOrSaveを実行
         if (count($this->scoreArray) === count($this->playerArray) && $this->isSameId($this->scoreArray)) {
-            $this->save();
+            $this->dispatch('confirm-save');
         } else if (count($this->scoreArray) > count($this->playerArray)) {
             // もしscoreArrayの数が多ければ不正アクセスとみなし、エラー表示
             $this->dispatch('show-error', error: 'プレイヤー重複エラーが発生しました。もう一度やり直してください。');
@@ -132,6 +132,7 @@ class PlayGame extends Component
         }
     }
 
+    #[On('request-save')]
     public function save()
     {
         try {

@@ -1,11 +1,11 @@
 <div class="mx-auto px-4 py-10 bg-brand-yellow-200 text-zinc-700 text-left">
-    <div class="w-full sm:w-96 sm:w-xl sm:mx-auto">
+    <div class="w-full sm:w-96 sm:w-lg sm:mx-auto">
 
-        <h1 class="block w-fit mx-auto sm:mx-0 my-8 text-xl sm:text-2xl font-bold">Yahtzee（ヤッツィー）の遊び方</h1>
+        <h1 class="block mx-auto sm:mx-0 my-8 text-xl sm:text-2xl text-center font-bold">Yahtzee（ヤッツィー）の遊び方</h1>
 
         <!-- ゲームの準備 -->
-        <div class="mb-4">
-            <h2 class="bg-brand-yellow-400 px-2 py-4 font-semibold text-xl">⚀ ゲームの準備 ⚀</h2>
+        <div class="mb-6">
+            <h2 class="bg-brand-yellow-400 px-2 py-4 font-semibold text-xl text-center">⚀ ゲームの準備 ⚀</h2>
             <div class="bg-zinc-50 p-4">
                 <div class="mb-4">
                     <h3 class="font-semibold text-lg mb-2">プレイヤー人数</h3>
@@ -28,15 +28,15 @@
         </div>
 
         <!-- ゲームの進め方 -->
-        <div class="mb-4">
-            <h2 class="bg-brand-yellow-400 px-2 py-4 font-semibold text-xl">⚁ ゲームの進め方 ⚁</h2>
+        <div class="mb-6">
+            <h2 class="bg-brand-yellow-400 px-2 py-4 font-semibold text-xl text-center">⚁ ゲームの進め方 ⚁</h2>
             <div class="bg-zinc-50 p-4">
                 <p class="mb-2">Yahtzeeは全13ラウンド。<br class="sm:hidden">1ラウンドごとに全プレイヤーが必ず1回プレイします。</p>
                 <ol class="px-6 list-decimal text-left">
                     <li class="mb-4">
                         <h3 class="font-semibold text-lg mb-2">サイコロを振る</h3>
                         <ul class="px-6 list-disc">
-                            <li>5つのサイコロを同時に振ります</li>
+                            <li>5つのサイコロを同時に振ります。</li>
                         </ul>
                     </li>
 
@@ -50,14 +50,13 @@
 
                     <li class="mb-4">
                         <h3 class="font-semibold text-lg mb-2">スコア項目を選ぶ</h3>
-                        <p class="mb-2">1ターンごとに必ず1つスコア項目を埋めます</p>
+                        <p class="mb-2">1ターンごとに必ず1つスコア項目を埋めます。</p>
                         <ul class="px-6 list-disc">
                             <li>
                                 振ったサイコロの目を見て、どのスコア項目に得点を入れるか決めます。
                             </li>
-                            <p class="sm:w-md my-2 py-2 px-4 border bg-zinc-100 text-sm sm:text-base">
-                                例<br>
-                                2 2 5 5 5<br>
+                            <p class="sm:w-[420px] my-2 py-2 px-4 border bg-zinc-100 text-sm sm:text-base">
+                                例　[ 2 2 5 5 5 ]<br>
                                 →選択肢1：フルハウスとして得点を獲得<br>
                                 →選択肢2：ファイブ(5)として得点を獲得
                             </p>
@@ -65,9 +64,9 @@
                             <li>
                                 既に使用したスコア項目へ得点を入れることはできません。
                             </li>
-                            <p class="sm:w-md my-2 py-2 px-4 border bg-zinc-100 text-sm sm:text-base">
-                                例<br>
-                                1 3 4 4 4 ：既にフォー(4)が埋まっている<br>
+                            <p class="sm:w-[420px] my-2 py-2 px-4 border bg-zinc-100 text-sm sm:text-base">
+                                例　[ 1 3 4 4 4 ]<br>
+                                ：既にフォー(4)が埋まっている<br>
                                 →3コンボとして得点を獲得<br>
                             </p>
 
@@ -75,9 +74,9 @@
                                 得点を獲得できない場合も、いずれか1つスコア項目を選び、<br>
                                 0点を入れてそのターンを終了します。
                             </li>
-                            <p class="sm:w-md my-2 py-2 px-4 border bg-zinc-100 text-sm sm:text-base">
-                                例<br>
-                                2 2 2 3 4 ：既にツー(2)や3コンボが埋まっている<br>
+                            <p class="sm:w-[420px] my-2 py-2 px-4 border bg-zinc-100 text-sm sm:text-base">
+                                例　[ 2 2 2 3 4 ]<br>
+                                ：既にツー(2)や3コンボが埋まっている<br>
                                 →選択肢1：エース(1)に「0」を入れる<br>
                                 →選択肢2：獲得する見込みの薄いYahtzeeに「0」を入れる
                             </p>
@@ -88,13 +87,14 @@
         </div>
 
         <!-- スコア項目・得点ルール -->
-        <div class="mb-4">
-            <h2 class="bg-brand-yellow-400 px-2 py-4 font-semibold text-xl">⚂ スコア項目・得点ルール ⚂</h2>
+        <div class="mb-6">
+            <h2 class="bg-brand-yellow-400 px-2 py-4 font-semibold text-xl text-center">⚂ スコア項目・得点ルール ⚂</h2>
             <div class="bg-zinc-50 p-4 overflow-x-auto">
-                <table class="border-collapse border border-zinc-600 text-zinc-800">
+                <table class="mx-auto border-collapse border border-zinc-600 text-zinc-800">
                     {{-- Column Headers --}}
                     <thead>
                         <tr class="bg-zinc-100 text-left">
+                            <th class="px-2 border border-zinc-400 !font-normal text-center">{{ __('No.') }}</th>
                             <th class="min-w-48 px-4 border border-zinc-400 !font-normal">{{ __('スコア項目') }}</th>
                             <th class="min-w-60 px-4 border border-zinc-400 !font-normal">{{ __('得点ルール') }}</th>
                         </tr>
@@ -114,23 +114,35 @@
                         ['name' => 'ラージ・ストレート', 'eng_name' => 'Large Straight', 'desc' => '5つの連続した目が揃えば40点', 'eng_desc' => 'Score 40'],
                         ['name' => 'YAHTZEE（ヤッツィー）', 'eng_name' => 'YAHTZEE', 'desc' => '同じ目が5つで50点', 'eng_desc' => 'Score 50'],
                         ['name' => 'チャンス', 'eng_name' => 'Chance', 'desc' => '全部の目の合計', 'eng_desc' => 'Total of all 5 dice'],
-                        ] as $row)
+                        ] as $i => $row)
                         <tr class="bg-white text-left">
+                            <th class="px-2 border border-zinc-400 !font-normal text-center">{{ $i + 1 }}</th>
                             <th class="min-w-48 px-4 border border-zinc-400 !font-normal">{{ $row['name'] }}</th>
                             <td class="min-w-56 px-4 border border-zinc-400 !font-normal">{{ __($row['desc']) }}</td>
                         </tr>
                         @endforeach
+                        <tr class="bg-white text-left">
+                            <th class="px-2 border border-zinc-400 !font-normal text-center">{{ '*' }}</th>
+                            <th class="min-w-48 px-4 border border-zinc-400 !font-normal">{{ __('Yahtzeeボーナス') }}</th>
+                            <td class="min-w-56 px-4 border border-zinc-400 !font-normal">
+                                <span>
+                                    {{ __('2回目以降Yahtzeeが出るごとに100点＋同時にその他のスコア項目へ得点を入れる') }}
+                                </span>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
+
+                <p class="mt-4 text-center text-sm sm:text-base font-medium text-red-400">{{__('Yahtzeeが出たら、「ヤッツィー！」と叫びます。')}}</p>
             </div>
         </div>
 
         <!-- 勝敗について -->
-        <div class="mb-4">
-            <h2 class="bg-brand-yellow-400 px-2 py-4 font-semibold text-xl">⚃ 勝敗について ⚃</h2>
+        <div class="mb-6">
+            <h2 class="bg-brand-yellow-400 px-2 py-4 font-semibold text-xl text-center">⚃ 勝敗について ⚃</h2>
             <div class="bg-zinc-50 p-4">
                 <ul class="px-6 list-disc text-left">
-                    <li>13ラウンド、全プレイヤーがすべてのスコア項目を埋めた時点で終了です。</li>
+                    <li>13ラウンド、全プレイヤーが全スコア項目を埋めた時点で終了です。</li>
                     <li>もっとも得点の高いプレイヤーが勝者となります。</li>
                 </ul>
             </div>

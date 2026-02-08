@@ -16,7 +16,7 @@ class PreparePlay extends Component
 
         $createdPlayers = session('created.players.data');
 
-        if (!$createdPlayers) {
+        if (!session()->has('created.players.data')) {
             return redirect()->route('play.create');
         }
 
