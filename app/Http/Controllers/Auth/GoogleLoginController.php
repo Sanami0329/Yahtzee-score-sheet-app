@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
 use App\Models\User;
+use Illuminate\Support\Str;
 
 class GoogleLoginController extends Controller
 {
@@ -17,12 +18,14 @@ class GoogleLoginController extends Controller
         return Socialite::driver('google')->redirect();
     }
 
+
     /**
      * 認証後にGoogleからのコールバックを受信する
      */
     public function handleGoogleCallback()
     {
-        $google_account = Socialite::driver('google')->user();
+        // statelessでproxyのstate不一致エラーを防ぐ
+        $google_account = Socialite::driver('google')->stateless()->user();
 
         $user = User::where('email', $google_account->getEmail())->first();
 
@@ -32,7 +35,7 @@ class GoogleLoginController extends Controller
                 'google_id' => $google_account->getId(),
             ]);
         } else {
-            
+
             $user = User::create([
                 'email' => $google_account->getEmail(),
                 'name' => $google_account->getName(),
@@ -43,6 +46,14 @@ class GoogleLoginController extends Controller
 
         Auth::login($user);
 
-        return to_route('dashboard');
+        // // ログイン直後にセッションを即時保存し、確実に反映させる
+        // request()->session()->regenerate(); // セッション固定攻撃対策
+        // request()->session()->put('auth_id', $user->id);
+        // request()->session()->save();
+
+        // // デバッグ用
+        // dd(Auth::check(), Auth::user());
+
+        return redirect()->route('dashboard');
     }
 }
