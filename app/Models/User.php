@@ -70,7 +70,7 @@ class User extends Authenticatable
 
     public function player()
     {
-        return $this->hasMany(Player::class);
+        return $this->hasOne(Player::class);
     }
 
     protected static function booted()

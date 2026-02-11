@@ -28,8 +28,10 @@ class ScoreHistory extends Component
 
     public function render()
     {
+        $playerId = auth()->user()->player->id;
+
         $scoreHistories = Score::with('play.scores.player')
-            ->where('player_id', auth()->id())
+            ->where('player_id', $playerId)
             ->orderBy($this->sortBy, $this->sortDirection)
             ->paginate(20);
 

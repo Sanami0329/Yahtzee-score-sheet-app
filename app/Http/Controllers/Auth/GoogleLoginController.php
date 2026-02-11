@@ -42,6 +42,7 @@ class GoogleLoginController extends Controller
                 'google_id' => $google_account->getId(),
                 'email_verified_at' => now(),
             ]);
+            
         }
 
         Auth::login($user);

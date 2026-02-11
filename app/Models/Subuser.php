@@ -20,6 +20,6 @@ class Subuser extends Model
 
     public function player()
     {
-        return $this->hasMany(Player::class);
+        return $this->hasOne(Player::class);
     }
 }

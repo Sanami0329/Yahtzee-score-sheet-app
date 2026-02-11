@@ -34,6 +34,14 @@ class PreparePlay extends Component
             'subuser_id' => null,
         ])->first();
 
+        if (!$userPlayer) {
+            // 例：ログイン中のユーザー名を使ってその場で作る（bootedが漏れた時の保険）
+            $userPlayer = Player::create([
+                'user_id' => auth()->id(),
+                'name' => auth()->user()->name,
+            ]);
+        }
+
         $playerArray[] = [
             'playerIsRegistered' => true,
             'playerId' => $userPlayer->id,

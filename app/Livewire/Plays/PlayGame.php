@@ -24,7 +24,7 @@ class PlayGame extends Component
     {
         // sessionからデータを受け取る
         $this->playId = session('play.id');
-        $this->playerArray = session('players', []);
+        $this->playerArray = session('players');
 
         if (!$this->playId || empty($this->playerArray)) {
             return redirect()->route('play.create');
@@ -139,6 +139,7 @@ class PlayGame extends Component
             DB::transaction(function () {
                 foreach ($this->scoreArray as $player) {
                     // logger()->info('Saving score', $player);
+
                     if ($player['playerData']['playerIsRegistered']) {
                         Score::updateOrCreate(
                             [
