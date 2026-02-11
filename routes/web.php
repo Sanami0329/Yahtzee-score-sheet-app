@@ -18,12 +18,12 @@ use Illuminate\Auth\Middleware\RedirectIfAuthenticated;
 
 Route::get('/', Top::class)->name('top');
 
-
+// googleへリダイレクト
 Route::middleware('guest')->group(function () {
     Route::get('auth/google', [GoogleLoginController::class, 'redirectToGoogle'])
         ->name('auth.google');
 });
-
+// googleからリダイレクト
 Route::middleware('web')->group(function () {
     Route::get('auth/google/callback', [GoogleLoginController::class, 'handleGoogleCallback'])
         ->name('auth.google.callback');
