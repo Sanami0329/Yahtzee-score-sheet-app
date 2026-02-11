@@ -13,20 +13,21 @@ use App\Livewire\Subusers\ShowSubusers;
 use App\Http\Controllers\Auth\GoogleLoginController;
 use App\Livewire\Top;
 use App\Livewire\HowToPlay;
+use Illuminate\Auth\Middleware\RedirectIfAuthenticated;
 
 
 Route::get('/', Top::class)->name('top');
 
 
 Route::middleware('guest')->group(function () {
-
     Route::get('auth/google', [GoogleLoginController::class, 'redirectToGoogle'])
         ->name('auth.google');
-
-    Route::get('auth/google/callback', [GoogleLoginController::class, 'handleGoogleCallback'])
-        ->name('auth.google.callbck');
 });
 
+Route::middleware('web')->group(function () {
+    Route::get('auth/google/callback', [GoogleLoginController::class, 'handleGoogleCallback'])
+        ->name('auth.google.callback');
+});
 
 require __DIR__ . '/settings.php';
 

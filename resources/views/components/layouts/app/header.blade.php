@@ -3,6 +3,8 @@
 
 <head>
     @include('partials.head')
+    @livewireStyles
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -155,6 +157,7 @@
     {{ $slot }}
 
     @fluxScripts
+    @livewireScripts
 </body>
 
 </html>

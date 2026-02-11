@@ -13,17 +13,18 @@ console_command = 'php /var/www/html/artisan tinker'
     PHP_VERSION = '8.2'
 
 [env]
+  APP_URL = 'https://yahtzeenote.fly.dev'
   APP_ENV = 'production'
+
+  DB_CONNECTION = "pgsql"
+
+  GOOGLE_REDIRECT_URL = 'https://yahtzeenote.fly.dev/auth/google/callback'
+  
   LOG_CHANNEL = 'stderr'
   LOG_LEVEL = 'info'
-  LOG_STDERR_FORMATTER = 'Monolog\Formatter\JsonFormatter'
+  
   SESSION_DRIVER = 'cookie'
-  SESSION_SECURE_COOKIE = 'true'
-  DB_CONNECTION = 'pgsql'
-  DB_DATABASE = 'laravel'
-  DB_PASSWORD = 'password'
-  DB_PORT = '5432'
-  DB_USERNAME = 'sail'
+
 
 [http_service]
   internal_port = 8080
